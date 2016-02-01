@@ -29,7 +29,7 @@ This library provides a pure python interface for the Twingly Search API.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-chmod a-x README
+chmod a-x README.md
 %{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
 
 
@@ -39,7 +39,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README.md
+%doc README.rst
 # For noarch packages: sitelib
 %{python_sitelib}/*
 

@@ -13,14 +13,14 @@ def read(*paths):
 
 setup(
     name='twingly-search',
-    version='1.0',
+    version='1.0.0',
     author='Twingly AB',
     author_email='',
     license='MIT',
     url='https://github.com/bearburger/twingly-search-api-python',
     keywords='twingly',
     description='Python library for Twingly Search API',
-    long_description=(read('README.md')),
+    long_description=(read('README.rst')),
     packages=find_packages(exclude=['tests*']),
     install_requires=['future', 'requests'],
     classifiers=[
