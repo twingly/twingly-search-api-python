@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import datetime
 
-import errors
+from twingly_search.errors import *
 
 
 class Result(object):
@@ -127,7 +127,7 @@ class Query(object):
         :return: Result object
         """
         if self.pattern == '' or self.pattern is None:
-            raise errors.TwinglyQueryException('Missing pattern')
+            raise TwinglyQueryException('Missing pattern')
 
         params = {
             'searchpattern': self.pattern,
