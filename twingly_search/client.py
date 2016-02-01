@@ -6,7 +6,7 @@ import os
 
 import requests
 
-import errors
+from twingly_search.errors import *
 from twingly_search.search import Search
 
 try:
@@ -36,7 +36,7 @@ class Client(object):
             api_key = os.environ.get('TWINGLY_SEARCH_KEY')
 
         if api_key is None:
-            raise errors.TwinglyAuthException()
+            raise TwinglyAuthException()
 
         self._api_key = api_key
 
@@ -60,21 +60,21 @@ class Client(object):
             try:
                 doc = ET.XML(response.content)
             except Exception:
-                raise errors.TwinglyServerException(response.content)
+                raise TwinglyServerException(response.content)
 
             if doc.tag == 'html':
-                raise errors.TwinglyServerException(response.content)
+                raise TwinglyServerException(response.content)
 
             if doc.find('{http://www.twingly.com}operationResult') is not None:
                 if doc.find('{http://www.twingly.com}operationResult').attrib['resultType'] == 'failure':
                     if 'API key' in doc.find('{http://www.twingly.com}operationResult').text:
-                        raise errors.TwinglyAuthException(doc.find('{http://www.twingly.com}operationResult').text)
+                        raise TwinglyAuthException(doc.find('{http://www.twingly.com}operationResult').text)
                     else:
-                        raise errors.TwinglyServerException(doc.find('{http://www.twingly.com}operationResult').text)
+                        raise TwinglyServerException(doc.find('{http://www.twingly.com}operationResult').text)
 
             return doc
         else:
             if response.status_code >= 500:
-                raise errors.TwinglyServerException(response.content)
+                raise TwinglyServerException(response.content)
             else:
-                raise errors.TwinglyQueryException(response.content)
+                raise TwinglyQueryException(response.content)
