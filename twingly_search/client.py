@@ -47,7 +47,7 @@ class Client(object):
 
         self.search = Search(self)
 
-    def _request(self, method, url, params, user_agent=None):
+    def request(self, method, url, params, user_agent=None):
         if 'key' not in params:
             params['key'] = self._api_key
 
