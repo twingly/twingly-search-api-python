@@ -18,10 +18,10 @@ class Result(object):
         seconds_elapsed             (float) number of seconds it took to execute the query
         posts                       (list of Post) all posts that matched the query
     """
+
     def __init__(self, doc):
         """
-        :param response: (string) response from Twingly API
-        :param version: (int)version of returned XML
+        :param doc: (xml) response from Twingly API
         """
 
         self.number_of_matches_returned = int(doc.attrib['numberOfMatchesReturned'])
@@ -42,7 +42,11 @@ class Result(object):
         return self.number_of_matches_total == self.number_of_matches_returned
 
     def __unicode__(self):
-        return "Number of matches returned: %d Seconds elapsed: %.3f Number of matches total: %d" % (self.number_of_matches_returned, self.seconds_elapsed, self.number_of_matches_total)
+        return "Number of matches returned: %d Seconds elapsed: %.3f Number of matches total: %d" % (
+            self.number_of_matches_returned,
+            self.seconds_elapsed,
+            self.number_of_matches_total
+        )
 
     def __str__(self):
         return self.__unicode__()
@@ -54,22 +58,24 @@ class Post(object):
 
     Attributes:
          content_type   (string)
-         url            (string) url the post URL
-         title          (string) title the post title
-         summary        (string) summary the blog post text
-         language_code  (string) language_code ISO two letter language code for the language that the post was written in
-         blog_url       (string) blog_url the blog URL
-         blog_name      (string) blog_name name of the blog
-         blog_rank      (int) the rank of the blog, based on authority and language (https://developer.twingly.com/resources/search/#authority)
-         authority      (int) authority the blog's authority/influence (https://developer.twingly.com/resources/search/#authority)
+         url            (string) the post URL
+         title          (string) the post title
+         summary        (string) the blog post text
+         language_code  (string) ISO two letter language code for the language that the post was written in
+         blog_url       (string) the blog URL
+         blog_name      (string) name of the blog
+         blog_rank      (int) the rank of the blog, based on authority and language
+                        (https://developer.twingly.com/resources/search/#authority)
+         authority      (int) authority the blog's authority/influence
+                        (https://developer.twingly.com/resources/search/#authority)
          published      (datetime.datetime) published the time, in UTC, when this post was published
          indexed        (datetime.datetime) indexed the time, in UTC, when this post was indexed by Twingly
          tags           (list of string) tags
     """
-    def __init__(self, post, version=0):
+
+    def __init__(self, post):
         """
         :param post: (xml.Element) post content
-        :param version: (int) version of XML
         :return:
         """
         self.content_type = post.attrib['contentType']
@@ -102,6 +108,7 @@ class Post(object):
     def __str__(self):
         return self.__unicode__()
 
+
 class Query(object):
     """
     Twingly Search API Query
@@ -113,12 +120,13 @@ class Query(object):
         end_time    (datetime.datetime) search for posts published before this time (inclusive)
         endpoint    (string) Twingly Search API endpoint
     """
+
     def __init__(self, pattern, client, language=None, start_time=None, end_time=None):
         self.pattern = pattern
         self.language = language
         self.start_time = start_time
         self.end_time = end_time
-        self._client = client
+        self.client = client
         self.endpoint = 'https://api.twingly.com/analytics/Analytics.ashx'
 
     def execute(self):
@@ -150,13 +158,15 @@ class Query(object):
             elif isinstance(self.end_time, basestring):
                 params['tsTo'] = self.end_time
 
-        doc = self._client._request('GET', self.endpoint, params)
+        doc = self.client.request('GET', self.endpoint, params)
         return Result(doc)
+
 
 class Search(object):
     """
     API methods holder
     """
+
     def __init__(self, client):
         self._client = client
 
@@ -171,5 +181,3 @@ class Search(object):
         :return:
         """
         return Query(pattern, self._client, language, start_time, end_time)
-
-

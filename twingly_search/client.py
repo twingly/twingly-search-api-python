@@ -15,7 +15,6 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
-
 from twingly_search import __version__
 
 
@@ -26,6 +25,7 @@ class Client(object):
     Attributes:
         search          (Search instance) Twingly Search API client instance
     """
+
     def __init__(self, api_key=None, user_agent='Twingly Search Python Client/%s'):
         """
 
@@ -43,7 +43,7 @@ class Client(object):
 
         self._user_agent = user_agent
         if self._user_agent == 'Twingly Search Python Client/%s':
-            self._user_agent = self._user_agent % (__version__)
+            self._user_agent = self._user_agent % __version__
 
         self.search = Search(self)
 
