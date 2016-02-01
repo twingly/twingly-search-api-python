@@ -40,12 +40,12 @@ for post in result.posts:
     print post.url
 ```
 
-The `twingly` library talks to a commercial blog search API and requires an API key. Best practice is to set the `TWINGLY_SEARCH_KEY` environment variable to the obtained key. `twingly.Client` can be passed a key at initialization if your setup does not allow environment variables.
+The `twingly_search` library talks to a commercial blog search API and requires an API key. Best practice is to set the `TWINGLY_SEARCH_KEY` environment variable to the obtained key. `twingly.Client` can be passed a key at initialization if your setup does not allow environment variables.
 
 Library is documented with [pydoc](https://docs.python.org/2/library/pydoc.html). To read documentation in shell run
 
 ```shell
-pydoc twingly
+pydoc twingly_search
 ```
 
 or you can run local web server with documentation with
@@ -54,7 +54,7 @@ or you can run local web server with documentation with
 pydoc -p 1234
 ```
 
-In this case documentation will be available at [http://localhost:1234/twingly.html](http://localhost:1234/twingly.html)
+In this case documentation will be available at [http://localhost:1234/twingly_search.html](http://localhost:1234/twingly_search.html)
 
 Example code can be found in [examples/](examples/).
 
