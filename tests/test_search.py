@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import unittest
 import twingly_search
 import os
@@ -6,7 +7,7 @@ import requests_mock
 class SearchTest(unittest.TestCase):
     def test_search_valid_result(self):
         with requests_mock.Mocker() as m:
-            m.get('https://api.twingly.com/analytics/Analytics.ashx', text=unicode(open("./tests/fixtures/valid_result.xml").read(), 'utf-8'))
+            m.get('https://api.twingly.com/analytics/Analytics.ashx', text=open("./tests/fixtures/valid_result.xml", 'r').read().decode("utf-8"))
             c = twingly_search.Client(os.environ.get('API_KEY'))
             query = c.search.query('github page-size:10')
             result = query.execute()
