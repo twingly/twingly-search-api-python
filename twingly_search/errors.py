@@ -1,10 +1,18 @@
-class TwinglyQueryException(Exception):
+class TwinglyException(Exception):
+    def from_api_response_message(self, message):
+        if 'API key' in message:
+            raise TwinglyAuthException(message)
+        else:
+            raise TwinglyServerException(message)
+
+
+class TwinglyAuthException(TwinglyException):
     pass
 
 
-class TwinglyServerException(Exception):
+class TwinglyServerException(TwinglyException):
     pass
 
 
-class TwinglyAuthException(Exception):
+class TwinglyQueryException(TwinglyException):
     pass

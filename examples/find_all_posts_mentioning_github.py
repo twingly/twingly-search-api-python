@@ -12,6 +12,7 @@ class SearchPostStream:
     def each(self):
         while True:
             result = self.query.execute()
+
             for post in result.posts:
                 yield post
 
@@ -20,10 +21,9 @@ class SearchPostStream:
 
             self.query.start_time = result.posts[-1].published
 
-
 stream = SearchPostStream("(github) AND (hipchat OR slack)")
 for post in stream.each():
-    print(post.url)
+    print(post.url.encode('utf-8'))
 
 
 

@@ -7,15 +7,10 @@ import os
 
 import requests
 
-from twingly_search.errors import *
-from twingly_search.search import Search
-
-try:
-    import xml.etree.cElementTree as ET
-except ImportError:
-    import xml.etree.ElementTree as ET
-
 from twingly_search import __version__
+from twingly_search.errors import *
+from twingly_search.parser import Parser
+from twingly_search.query import Query
 
 
 class Client(object):
@@ -26,7 +21,11 @@ class Client(object):
         search          (Search instance) Twingly Search API client instance
     """
 
-    def __init__(self, api_key=None, user_agent='Twingly Search Python Client/%s'):
+    BASE_URL = "https://api.twingly.com"
+    SEARCH_PATH = "/analytics/Analytics.ashx"
+    DEFAULT_USER_AGENT = "Twingly Search Python Client/%s"
+
+    def __init__(self, api_key=None, user_agent=None):
         """
 
         :param api_key: (string) Twingly Search API Key
@@ -34,48 +33,40 @@ class Client(object):
         """
 
         if api_key is None:
-            api_key = os.environ.get('TWINGLY_SEARCH_KEY')
+            api_key = self.env_api_key()
 
         if api_key is None:
             raise TwinglyAuthException()
 
-        self._api_key = api_key
+        self.api_key = api_key
 
         self._user_agent = user_agent
-        if self._user_agent == 'Twingly Search Python Client/%s':
-            self._user_agent = self._user_agent % __version__
+        if self._user_agent is None:
+            self._user_agent = self.DEFAULT_USER_AGENT % __version__
 
-        self.search = Search(self)
+    def query(self):
+        return Query(self)
 
-    def request(self, method, url, params, user_agent=None):
-        if 'key' not in params:
-            params['key'] = self._api_key
+    def execute_query(self, query):
+        response_body = self.get_response(query).content
+        return Parser().parse(response_body)
 
+    def endpoint_url(self):
+        return "%s%s" % (self.BASE_URL, self.SEARCH_PATH)
+
+    def env_api_key(self):
+        return os.environ.get('TWINGLY_SEARCH_KEY')
+
+    def get_response(self, query):
         headers = {'User-Agent': self._user_agent}
-        if user_agent is not None:
-            headers = {'User-Agent': user_agent}
-
-        response = requests.request(method, url, headers=headers, params=params)
-
+        response = requests.get(query.url(), headers=headers, proxies={'http': '127.0.0.1:8888','https': '127.0.0.1:8888'}, verify=False)
         if 200 <= response.status_code < 300:
-            try:
-                doc = ET.XML(response.content)
-            except Exception:
-                raise TwinglyServerException(response.content)
-
-            if doc.tag == 'html':
-                raise TwinglyServerException(response.content)
-
-            if doc.find('{http://www.twingly.com}operationResult') is not None:
-                if doc.find('{http://www.twingly.com}operationResult').attrib['resultType'] == 'failure':
-                    if 'API key' in doc.find('{http://www.twingly.com}operationResult').text:
-                        raise TwinglyAuthException(doc.find('{http://www.twingly.com}operationResult').text)
-                    else:
-                        raise TwinglyServerException(doc.find('{http://www.twingly.com}operationResult').text)
-
-            return doc
+            return response
         else:
             if response.status_code >= 500:
                 raise TwinglyServerException(response.content)
             else:
                 raise TwinglyQueryException(response.content)
+
+    def api_key_missing(self):
+        raise TwinglyAuthException("No API key has been provided.")
