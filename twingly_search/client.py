@@ -41,9 +41,6 @@ class Client(object):
             self._user_agent = self.DEFAULT_USER_AGENT % __version__
 
         self._session = requests.Session()
-        self._session.headers.update({'User-Agent': self._user_agent})
-        self._session.proxies.update({'http': '127.0.0.1:8888', 'https': '127.0.0.1:8888'})
-        self._session.verify = False
 
     def query(self):
         """
