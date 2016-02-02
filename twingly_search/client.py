@@ -40,6 +40,11 @@ class Client(object):
         if self._user_agent is None:
             self._user_agent = self.DEFAULT_USER_AGENT % __version__
 
+        self._session = requests.Session()
+        self._session.headers.update({'User-Agent': self._user_agent})
+        self._session.proxies.update({'http': '127.0.0.1:8888', 'https': '127.0.0.1:8888'})
+        self._session.verify = False
+
     def query(self):
         """
         Returns a new <twingly_search.Query> object connected to this client
@@ -68,8 +73,7 @@ class Client(object):
         return os.environ.get('TWINGLY_SEARCH_KEY')
 
     def _get_response(self, query):
-        headers = {'User-Agent': self._user_agent}
-        response = requests.get(query.url(), headers=headers)
+        response = self._session.get(query.url())
         if 200 <= response.status_code < 300:
             return response
         else:
