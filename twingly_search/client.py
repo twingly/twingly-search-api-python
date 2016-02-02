@@ -41,6 +41,7 @@ class Client(object):
             self._user_agent = self.DEFAULT_USER_AGENT % __version__
 
         self._session = requests.Session()
+        self._session.headers.update({'User-Agent': self._user_agent})
 
     def query(self):
         """
