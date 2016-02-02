@@ -1,11 +1,7 @@
 from __future__ import unicode_literals
 import unittest
 
-import datetime
-import requests_mock
-
 import twingly_search
-import os
 
 class ResultTest(unittest.TestCase):
     def test_result(self):

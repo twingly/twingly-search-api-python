@@ -1,10 +1,7 @@
 from __future__ import unicode_literals
 import unittest
 
-import requests_mock
-
 import twingly_search
-import os
 
 class ParserTest(unittest.TestCase):
     def test_with_valid_result(self):
