@@ -7,6 +7,13 @@ import requests_mock
 import twingly_search
 import os
 
+try:
+    unicode = unicode
+except NameError:
+    basestring = (str,bytes)
+else:
+    basestring = basestring
+
 class PostTest(unittest.TestCase):
     def test_post(self):
         data = open("./tests/fixtures/valid_result.xml", 'r').read()

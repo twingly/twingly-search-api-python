@@ -41,19 +41,19 @@ class QueryTest(unittest.TestCase):
     def test_query_should_add_start_time(self):
         q = twingly_search.Client(os.environ.get('API_KEY')).query()
         q.pattern = "spotify"
-        q.start_time = datetime.datetime(2012, 12, 28, 9, 01, 22)
+        q.start_time = datetime.datetime(2012, 12, 28, 9, 1, 22)
         self.assertEqual(q.request_parameters()['ts'], "2012-12-28 09:01:22")
 
     def test_query_should_add_end_time(self):
         q = twingly_search.Client(os.environ.get('API_KEY')).query()
         q.pattern = "spotify"
-        q.end_time = datetime.datetime(2012, 12, 28, 9, 01, 22)
+        q.end_time = datetime.datetime(2012, 12, 28, 9, 1, 22)
         self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 09:01:22")
 
     def test_query_should_encode_url_parameters(self):
         q = twingly_search.Client(os.environ.get('API_KEY')).query()
         q.pattern = "spotify"
-        q.end_time = datetime.datetime(2012, 12, 28, 9, 01, 22)
+        q.end_time = datetime.datetime(2012, 12, 28, 9, 1, 22)
         self.assertIn("tsTo=2012-12-28+09%3A01%3A22", q.url_parameters())
 
     def test_query_pattern(self):
