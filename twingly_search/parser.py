@@ -16,6 +16,12 @@ from twingly_search.errors import *
 
 class Parser:
     def parse(self, document):
+        """
+        Parse an API response body.
+
+        :param document: containing an API response XML
+        :return: containing the Result
+        """
         try:
             doc = ET.XML(document)
         except Exception as e:
@@ -31,9 +37,9 @@ class Parser:
                 else:
                     raise TwinglyServerException(doc.find('{http://www.twingly.com}operationResult').text)
 
-        return self.create_result(doc)
+        return self._create_result(doc)
 
-    def create_result(self, data_node):
+    def _create_result(self, data_node):
         result = Result()
 
         result.number_of_matches_returned = int(data_node.attrib['numberOfMatchesReturned'])
@@ -43,15 +49,15 @@ class Parser:
         result.posts = []
 
         for p in data_node.findall('post[@contentType="blog"]'):
-            result.posts.append(self.parse_post(p))
+            result.posts.append(self._parse_post(p))
 
         return result
 
-    def parse_post(self, element):
+    def _parse_post(self, element):
         post_params = {'tags': []}
         for child in element:
             if child.tag == 'tags':
-                post_params[child.tag] = self.parse_tags(child)
+                post_params[child.tag] = self._parse_tags(child)
             else:
                 post_params[child.tag] = child.text
 
@@ -59,15 +65,15 @@ class Parser:
         post.set_values(post_params)
         return post
 
-    def parse_tags(self, element):
+    def _parse_tags(self, element):
         tags = []
         for tag in element.find('tag'):
             tags.append(tag.text)
         return tags
 
-    def handle_failure(self, failure):
+    def _handle_failure(self, failure):
         raise TwinglyException.from_api_response_message(failure.text)
 
-    def handle_non_xml_document(self, document):
+    def _handle_non_xml_document(self, document):
         response_text = document.find("//text()").text
         raise TwinglyServerException(response_text)

@@ -27,18 +27,36 @@ class Query(object):
     end_time = None
 
     def __init__(self, client):
+        """
+        No need to call this method manually, instead use {Client#query}.
+
+        :param client: the client that this query should be connected to
+        """
         self.client = client
 
     def url(self):
+        """
+        :return: request url for the query
+        """
         return "%s?%s" % (self.client.endpoint_url(), self.url_parameters())
 
     def execute(self):
+        """
+        Executes the query and returns the result
+        :return: the result for this query
+        """
         return self.client.execute_query(self)
 
     def url_parameters(self):
+        """
+        :return: the query part of the request url
+        """
         return urlencode(self.request_parameters())
 
     def request_parameters(self):
+        """
+        :return: the request parameters
+        """
         if len(self.pattern) == 0:
             raise TwinglyQueryException("Missing pattern")
 

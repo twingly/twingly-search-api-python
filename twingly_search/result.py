@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 class Result(object):
     """
-    Represents a result from a query to the Search API
+    Represents a result from a Query to the Search API
 
     Attributes:
         number_of_matches_returned  (int) number of Post the query returned

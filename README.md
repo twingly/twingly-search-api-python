@@ -33,7 +33,9 @@ from twingly_search import Client
 
 client = Client()
 
-query = client.search.query('github page-size:10', language = 'sv')
+query = client.query()
+query.pattern = 'github page-size:10'
+query.language = 'sv'
 result = query.execute()
 
 for post in result.posts:

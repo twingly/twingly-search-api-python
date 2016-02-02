@@ -16,9 +16,6 @@ from twingly_search.query import Query
 class Client(object):
     """
     Twingly Search API client
-
-    Attributes:
-        search          (Search instance) Twingly Search API client instance
     """
 
     BASE_URL = "https://api.twingly.com"
@@ -27,16 +24,15 @@ class Client(object):
 
     def __init__(self, api_key=None, user_agent=None):
         """
-
         :param api_key: (string) Twingly Search API Key
         :param user_agent: (string) User Agent for client
         """
 
         if api_key is None:
-            api_key = self.env_api_key()
+            api_key = self._env_api_key()
 
         if api_key is None:
-            raise TwinglyAuthException()
+            self._api_key_missing()
 
         self.api_key = api_key
 
@@ -45,21 +41,35 @@ class Client(object):
             self._user_agent = self.DEFAULT_USER_AGENT % __version__
 
     def query(self):
+        """
+        Returns a new <twingly_search.Query> object connected to this client
+
+        :return: Query
+        """
         return Query(self)
 
     def execute_query(self, query):
-        response_body = self.get_response(query).content
+        """
+        Executes the given Query and returns the result
+
+        :param query: the Query to be executed
+        :return: Result
+        """
+        response_body = self._get_response(query).content
         return Parser().parse(response_body)
 
     def endpoint_url(self):
+        """
+        :return: API endpoint URL
+        """
         return "%s%s" % (self.BASE_URL, self.SEARCH_PATH)
 
-    def env_api_key(self):
+    def _env_api_key(self):
         return os.environ.get('TWINGLY_SEARCH_KEY')
 
-    def get_response(self, query):
+    def _get_response(self, query):
         headers = {'User-Agent': self._user_agent}
-        response = requests.get(query.url(), headers=headers, proxies={'http': '127.0.0.1:8888','https': '127.0.0.1:8888'}, verify=False)
+        response = requests.get(query.url(), headers=headers)
         if 200 <= response.status_code < 300:
             return response
         else:
@@ -68,5 +78,5 @@ class Client(object):
             else:
                 raise TwinglyQueryException(response.content)
 
-    def api_key_missing(self):
+    def _api_key_missing(self):
         raise TwinglyAuthException("No API key has been provided.")

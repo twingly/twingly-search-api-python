@@ -2,12 +2,12 @@ import twingly_search
 import datetime
 
 class SearchPostStream:
-    def __init__(self, keyword, language=None):
+    def __init__(self, keyword, language=''):
         self.client = twingly_search.Client(user_agent="MyCompany/1.0")
-        self.query = self.client.search.query(
-                "sort-order:asc sort:published %s" % keyword,
-                start_time=datetime.datetime.utcnow() - datetime.timedelta(hours=48),
-                language=language)
+        self.query = self.client.query()
+        self.query.pattern = "sort-order:asc sort:published %s" % keyword
+        self.query.start_time = datetime.datetime.utcnow() - datetime.timedelta(hours=48)
+        self.query.language = language
 
     def each(self):
         while True:
@@ -24,6 +24,3 @@ class SearchPostStream:
 stream = SearchPostStream("(github) AND (hipchat OR slack)")
 for post in stream.each():
     print(post.url.encode('utf-8'))
-
-
-
