@@ -15,7 +15,7 @@ Install via PyPI
 
 .. code:: shell
 
-    pip install twingly_search
+    pip install twingly-search
 
 Or add ``twingly`` to your application's `requirements
 file <https://pip.pypa.io/en/stable/user_guide/#requirements-files>`__

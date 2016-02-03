@@ -1,7 +1,7 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           twingly
-Version:        1.0.0
+Version:        1.0.1
 Release:        %{?dist}
 Summary:        Python Interface for Twingly Search API
 
