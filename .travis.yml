@@ -1,11 +1,16 @@
 language: python
 sudo: false
+addons:
+  apt_packages:
+    - pandoc
+
 python:
   - "2.7"
   - "3.5"
 
 install:
   - travis_retry pip install .
+  - pip install pypandoc
   - pip install -r test_requirements.txt
 
 script:
