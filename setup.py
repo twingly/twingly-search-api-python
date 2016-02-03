@@ -13,7 +13,7 @@ def read(*paths):
 
 setup(
     name='twingly-search',
-    version='1.0.1',
+    version='1.0.2',
     author='Twingly AB',
     author_email='',
     license='MIT',
