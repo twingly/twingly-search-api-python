@@ -70,7 +70,7 @@ To learn more about the capabilities of the API, please read the [Twingly Search
   * Python 2.6+, 3.0+
   * [Requests](https://pypi.python.org/pypi/requests)
 
-# Release
+## Release
 
 You'll need pandoc to convert the Markdown README to reStructuredText:
 
