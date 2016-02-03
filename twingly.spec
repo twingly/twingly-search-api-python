@@ -7,7 +7,7 @@ Summary:        Python Interface for Twingly Search API
 
 Group:          Development/Libraries
 License:        MIT
-URL:            http://github.com/bearburger/twingly-search-api-python
+URL:            http://github.com/twingly/twingly-search-api-python
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch

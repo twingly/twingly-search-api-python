@@ -17,7 +17,7 @@ setup(
     author='Twingly AB',
     author_email='',
     license='MIT',
-    url='https://github.com/bearburger/twingly-search-api-python',
+    url='https://github.com/twingly/twingly-search-api-python',
     keywords='twingly',
     description='Python library for Twingly Search API',
     long_description=(read('README.rst')),
