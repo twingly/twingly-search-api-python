@@ -30,9 +30,9 @@ class Result(object):
         return self.number_of_matches_total == self.number_of_matches_returned
 
     def __repr__(self):
-        matches = "@posts, "
-        matches += "@number_of_matches_returned=%d, " % self.number_of_matches_returned
-        matches += "@number_of_matches_total=%d, " % self.number_of_matches_total
+        matches = "posts, "
+        matches += "number_of_matches_returned=%d, " % self.number_of_matches_returned
+        matches += "number_of_matches_total=%d" % self.number_of_matches_total
 
         return "#<%s:0x%s %s>" % (self.__class__.__name__, id(self), matches)
 
