@@ -39,7 +39,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README.rst
+%doc README.md
 # For noarch packages: sitelib
 %{python_sitelib}/*
 

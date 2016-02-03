@@ -3,6 +3,7 @@
 '''The setup and build script for the twingly-search library.'''
 
 import os
+import pypandoc
 
 from setuptools import setup, find_packages
 
@@ -20,7 +21,7 @@ setup(
     url='https://github.com/twingly/twingly-search-api-python',
     keywords='twingly',
     description='Python library for Twingly Search API',
-    long_description=(read('README.rst')),
+    long_description=pypandoc.convert('README.md', 'rst'),
     packages=find_packages(exclude=['tests*']),
     install_requires=['future', 'requests'],
     classifiers=[
