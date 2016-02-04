@@ -15,7 +15,7 @@ if 'GENERATE_RST' in os.environ:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')
 else:
-    readme_file = open('README.md', 'rb')
+    readme_file = open('README.md', 'r')
     long_description = readme_file.read()
     readme_file.close()
 
