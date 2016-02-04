@@ -3,7 +3,6 @@
 '''The setup and build script for the twingly-search library.'''
 
 import os
-import pypandoc
 
 from setuptools import setup, find_packages
 
@@ -11,6 +10,14 @@ def read(*paths):
     """Build a file path from *paths* and return the contents."""
     with open(os.path.join(*paths), 'r') as f:
         return f.read()
+
+if os.environ.has_key('GENERATE_RST'):
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+else:
+    readme_file = open('README.md', 'rb')
+    long_description = readme_file.read()
+    readme_file.close()
 
 setup(
     name='twingly-search',
@@ -21,7 +28,7 @@ setup(
     url='https://github.com/twingly/twingly-search-api-python',
     keywords='twingly',
     description='Python library for Twingly Search API',
-    long_description=pypandoc.convert('README.md', 'rst'),
+    long_description=long_description,
     packages=find_packages(exclude=['tests*']),
     install_requires=['future', 'requests'],
     classifiers=[
