@@ -11,7 +11,7 @@ def read(*paths):
     with open(os.path.join(*paths), 'r') as f:
         return f.read()
 
-if os.environ.has_key('GENERATE_RST'):
+if 'GENERATE_RST' in os.environ:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst')
 else:
