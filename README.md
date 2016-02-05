@@ -12,7 +12,7 @@ Install via PyPI
 pip install twingly-search
 ```
 
-Or add `twingly` to your application's [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) and then run
+Or add `twingly-search` to your application's [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) and then run
 
 ```shell
 pip install -r requirements.txt
@@ -69,6 +69,21 @@ To learn more about the capabilities of the API, please read the [Twingly Search
 * Python
   * Python 2.6+, 3.0+
   * [Requests](https://pypi.python.org/pypi/requests)
+
+## Release
+
+You will need pandoc to convert README.md to reStructuredText:
+
+    brew install pandoc
+    pip install pypandoc
+
+Bump the version in [setup.py](./setup.py).
+
+Publish to [PyPi]:
+
+    ./publish-to-pypi.sh
+
+[PyPi]: https://pypi.python.org/pypi/twingly-search
 
 ## License
 
