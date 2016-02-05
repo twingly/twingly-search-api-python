@@ -18,7 +18,7 @@ setup(
     name='twingly-search',
     version='1.0.2',
     author='Twingly AB',
-    author_email='',
+    author_email='support@twingly.com',
     license='MIT',
     url='https://github.com/twingly/twingly-search-api-python',
     keywords='twingly',
