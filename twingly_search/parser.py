@@ -13,7 +13,6 @@ except ImportError:
 
 from twingly_search.errors import *
 
-
 class Parser:
     def parse(self, document):
         """
@@ -27,15 +26,12 @@ class Parser:
         except Exception as e:
             raise TwinglyServerException(e)
 
-        if doc.tag == 'html':
-            raise TwinglyServerException(document)
-
         if doc.find('{http://www.twingly.com}operationResult') is not None:
             if doc.find('{http://www.twingly.com}operationResult').attrib['resultType'] == 'failure':
-                if 'API key' in doc.find('{http://www.twingly.com}operationResult').text:
-                    raise TwinglyAuthException(doc.find('{http://www.twingly.com}operationResult').text)
-                else:
-                    raise TwinglyServerException(doc.find('{http://www.twingly.com}operationResult').text)
+                self._handle_failure(doc.find('{http://www.twingly.com}operationResult'))
+
+        if 'twinglydata' != doc.tag:
+            self._handle_non_xml_document(doc)
 
         return self._create_result(doc)
 
@@ -72,8 +68,8 @@ class Parser:
         return tags
 
     def _handle_failure(self, failure):
-        raise TwinglyException.from_api_response_message(failure.text)
+        TwinglyException().from_api_response_message(failure.text)
 
     def _handle_non_xml_document(self, document):
-        response_text = document.find("//text()").text
+        response_text = ''.join(document.itertext())
         raise TwinglyServerException(response_text)
