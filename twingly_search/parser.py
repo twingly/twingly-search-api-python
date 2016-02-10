@@ -3,14 +3,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-try:
-    import __builtin__ as _builtins
-    unicode = _builtins.unicode
-except Exception:
-    import builtins as _builtins
-    unicode = _builtins.str
-
-
 from twingly_search.post import Post
 from twingly_search.result import Result
 
@@ -20,7 +12,6 @@ except ImportError:
     import xml.etree.ElementTree as ET
 
 from twingly_search.errors import *
-
 
 class Parser:
     def parse(self, document):
@@ -39,8 +30,7 @@ class Parser:
             if doc.find('{http://www.twingly.com}operationResult').attrib['resultType'] == 'failure':
                 self._handle_failure(doc.find('{http://www.twingly.com}operationResult'))
 
-
-        if unicode('twinglydata') != unicode(doc.tag):
+        if 'twinglydata' != doc.tag:
             self._handle_non_xml_document(doc)
 
         return self._create_result(doc)
