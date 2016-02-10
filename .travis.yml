@@ -11,3 +11,13 @@ install:
 
 script:
   - make test
+
+notifications:
+  email: false
+  hipchat:
+    on_success: never
+    on_failure: change
+    template:
+    - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}
+      (<a href="%{build_url}">Details</a>/<a href="%{compare_url}">Change view</a>)'
+    format: html
