@@ -3,6 +3,14 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+try:
+    import __builtin__ as _builtins
+    unicode = _builtins.unicode
+except Exception:
+    import builtins as _builtins
+    unicode = _builtins.str
+
+
 from twingly_search.post import Post
 from twingly_search.result import Result
 
@@ -27,15 +35,13 @@ class Parser:
         except Exception as e:
             raise TwinglyServerException(e)
 
-        if doc.tag == 'html':
-            raise TwinglyServerException(document)
-
         if doc.find('{http://www.twingly.com}operationResult') is not None:
             if doc.find('{http://www.twingly.com}operationResult').attrib['resultType'] == 'failure':
-                if 'API key' in doc.find('{http://www.twingly.com}operationResult').text:
-                    raise TwinglyAuthException(doc.find('{http://www.twingly.com}operationResult').text)
-                else:
-                    raise TwinglyServerException(doc.find('{http://www.twingly.com}operationResult').text)
+                self._handle_failure(doc.find('{http://www.twingly.com}operationResult'))
+
+
+        if unicode('twinglydata') != unicode(doc.tag):
+            self._handle_non_xml_document(doc)
 
         return self._create_result(doc)
 
@@ -72,8 +78,8 @@ class Parser:
         return tags
 
     def _handle_failure(self, failure):
-        raise TwinglyException.from_api_response_message(failure.text)
+        TwinglyException().from_api_response_message(failure.text)
 
     def _handle_non_xml_document(self, document):
-        response_text = document.find("//text()").text
+        response_text = ''.join(document.itertext())
         raise TwinglyServerException(response_text)
