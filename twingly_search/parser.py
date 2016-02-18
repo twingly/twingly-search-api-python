@@ -63,7 +63,7 @@ class Parser:
 
     def _parse_tags(self, element):
         tags = []
-        for tag in element.find('tag'):
+        for tag in element.findall('tag'):
             tags.append(tag.text)
         return tags
 
