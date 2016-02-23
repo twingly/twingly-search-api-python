@@ -38,7 +38,7 @@ query.pattern = 'github page-size:10'
 query.language = 'sv'
 
 # Assumes UTC if no timezone is specified
-query.start_time = datetime.datetime(2015, 02, 23, 15, 18, 13)
+query.start_time = datetime.datetime(2015, 2, 23, 15, 18, 13)
 
 result = query.execute()
 
