@@ -36,6 +36,10 @@ client = Client()
 query = client.query()
 query.pattern = 'github page-size:10'
 query.language = 'sv'
+
+# Assumes UTC if no timezone is specified
+query.start_time = datetime.datetime(2015, 02, 23, 15, 18, 13)
+
 result = query.execute()
 
 for post in result.posts:

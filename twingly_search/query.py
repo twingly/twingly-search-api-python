@@ -19,13 +19,17 @@ class Query(object):
         language    (string) language which language to restrict the query to
         client      (Client) the client that this query is connected to
         start_time  (datetime.datetime) search for posts published after this time (inclusive)
+                    Assumes UTC if the datetime object has no timezone set.
         end_time    (datetime.datetime) search for posts published before this time (inclusive)
+                    Assumes UTC if the datetime object has no timezone set.
     """
     pattern = ''
     language = ''
     client = None
     start_time = None
     end_time = None
+
+    DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
     def __init__(self, client):
         """
@@ -73,9 +77,10 @@ class Query(object):
     def _time_to_utc_string(self, time, attr_name):
         if time is not None:
             if isinstance(time, datetime.datetime):
-                if time.tzinfo is None:
-                    raise TwinglyQueryException("No timezone set for %s" % attr_name)
-                return time.astimezone(utc).strftime("%Y-%m-%d %H:%M:%S")
+                time_in_utc = time
+                if time.tzinfo is not None:
+                    time_in_utc = time.astimezone(utc)
+                return time_in_utc.strftime(self.DATETIME_FORMAT)
             elif isinstance(time, basestring):
                 return time
             else:

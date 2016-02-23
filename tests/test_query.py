@@ -53,8 +53,7 @@ class QueryTest(unittest.TestCase):
         q = self._client.query()
         q.pattern = "spotify"
         q.start_time = datetime(2012, 12, 28, 9, 1, 22)
-        with self.assertRaises(twingly_search.TwinglyQueryException):
-            q.request_parameters()
+        self.assertEqual(q.request_parameters()['ts'], "2012-12-28 09:01:22")
 
     def test_query_using_start_time_with_timezone_other_than_utc(self):
         q = self._client.query()
@@ -72,8 +71,7 @@ class QueryTest(unittest.TestCase):
         q = self._client.query()
         q.pattern = "spotify"
         q.end_time = datetime(2012, 12, 28, 9, 1, 22)
-        with self.assertRaises(twingly_search.TwinglyQueryException):
-            q.request_parameters()
+        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 09:01:22")
 
     def test_query_using_end_time_with_timezone_other_than_utc(self):
         q = self._client.query()
