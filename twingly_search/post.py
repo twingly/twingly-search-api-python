@@ -1,4 +1,5 @@
 import datetime
+from pytz import utc
 
 class Post(object):
     """
@@ -41,13 +42,17 @@ class Post(object):
         self.title = params['title']
         self.summary = params['summary']
         self.language_code = params['languageCode']
-        self.published = datetime.datetime.strptime(params['published'], '%Y-%m-%d %H:%M:%SZ')
-        self.indexed = datetime.datetime.strptime(params['indexed'], '%Y-%m-%d %H:%M:%SZ')
+        self.published = self._parse_time(params['published'])
+        self.indexed = self._parse_time(params['indexed'])
         self.blog_url = params['blogUrl']
         self.blog_name = params['blogName']
         self.authority = int(params['authority'])
         self.blog_rank = int(params['blogRank'])
         self.tags = params['tags']
+
+    def _parse_time(self, time):
+        parsed_time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%SZ')
+        return utc.localize(parsed_time)
 
     def __unicode__(self):
         return "%s %s" % (self.title, self.url)
