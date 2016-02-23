@@ -2,3 +2,4 @@
 
 nose
 betamax
+python-dateutil

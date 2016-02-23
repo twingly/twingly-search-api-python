@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 import unittest
 from datetime import datetime
 import pytz
+import dateutil.parser
 from betamax import Betamax
 import twingly_search
 
@@ -61,6 +62,12 @@ class QueryTest(unittest.TestCase):
         q.start_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "Europe/Stockholm")
         self.assertEqual(q.request_parameters()['ts'], "2012-12-28 08:01:22")
 
+    def test_query_using_start_time_parsed_by_dateutil(self):
+        q = self._client.query()
+        q.pattern = "spotify"
+        q.end_time = dateutil.parser.parse("2012-12-28 09:01:22 -0800")
+        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 17:01:22")
+
     def test_query_should_add_end_time(self):
         q = self._client.query()
         q.pattern = "spotify"
@@ -78,6 +85,12 @@ class QueryTest(unittest.TestCase):
         q.pattern = "spotify"
         q.end_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "Europe/Stockholm")
         self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 08:01:22")
+
+    def test_query_using_end_time_parsed_by_dateutil(self):
+        q = self._client.query()
+        q.pattern = "spotify"
+        q.end_time = dateutil.parser.parse("2012-12-28 09:01:22 +0800")
+        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 01:01:22")
 
     def test_query_should_encode_url_parameters(self):
         q = self._client.query()
