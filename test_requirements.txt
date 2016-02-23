@@ -1,5 +1,4 @@
-future
-requests
-pytz
+-r requirements.txt
+
 nose
 betamax
