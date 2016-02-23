@@ -1,4 +1,5 @@
 import datetime
+from pytz import utc
 
 from twingly_search.errors import TwinglyQueryException
 
@@ -72,7 +73,9 @@ class Query(object):
     def _ts(self):
         if self.start_time is not None:
             if isinstance(self.start_time, datetime.datetime):
-                return self.start_time.strftime("%Y-%m-%d %H:%M:%S")
+                if self.start_time.tzinfo is None:
+                    raise TwinglyQueryException("start_time must include timezone")
+                return self.start_time.astimezone(utc).strftime("%Y-%m-%d %H:%M:%S")
             elif isinstance(self.start_time, basestring):
                 return self.start_time
             else:
@@ -83,7 +86,9 @@ class Query(object):
     def _tsTo(self):
         if self.end_time is not None:
             if isinstance(self.end_time, datetime.datetime):
-                return self.end_time.strftime("%Y-%m-%d %H:%M:%S")
+                if self.end_time.tzinfo is None:
+                    raise TwinglyQueryException("end_time must include timezone")
+                return self.end_time.astimezone(utc).strftime("%Y-%m-%d %H:%M:%S")
             elif isinstance(self.end_time, basestring):
                 return self.end_time
             else:
