@@ -65,32 +65,19 @@ class Query(object):
             'key': self.client.api_key,
             'searchpattern': self.pattern,
             'documentlang': self.language,
-            'ts': self._ts(),
-            'tsTo': self._tsTo(),
+            'ts': self._time_to_utc_string(self.start_time, "start_time"),
+            'tsTo': self._time_to_utc_string(self.end_time, "end_time"),
             'xmloutputversion': 2
         }
 
-    def _ts(self):
-        if self.start_time is not None:
-            if isinstance(self.start_time, datetime.datetime):
-                if self.start_time.tzinfo is None:
-                    raise TwinglyQueryException("start_time must include timezone")
-                return self.start_time.astimezone(utc).strftime("%Y-%m-%d %H:%M:%S")
-            elif isinstance(self.start_time, basestring):
-                return self.start_time
-            else:
-                return ''
-        else:
-            return ''
-
-    def _tsTo(self):
-        if self.end_time is not None:
-            if isinstance(self.end_time, datetime.datetime):
-                if self.end_time.tzinfo is None:
-                    raise TwinglyQueryException("end_time must include timezone")
-                return self.end_time.astimezone(utc).strftime("%Y-%m-%d %H:%M:%S")
-            elif isinstance(self.end_time, basestring):
-                return self.end_time
+    def _time_to_utc_string(self, time, attr_name):
+        if time is not None:
+            if isinstance(time, datetime.datetime):
+                if time.tzinfo is None:
+                    raise TwinglyQueryException("No timezone set for %s" % attr_name)
+                return time.astimezone(utc).strftime("%Y-%m-%d %H:%M:%S")
+            elif isinstance(time, basestring):
+                return time
             else:
                 return ''
         else:
