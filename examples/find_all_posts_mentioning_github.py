@@ -1,12 +1,13 @@
 import twingly_search
 import datetime
+import pytz
 
 class SearchPostStream:
     def __init__(self, keyword, language=''):
         self.client = twingly_search.Client(user_agent="MyCompany/1.0")
         self.query = self.client.query()
         self.query.pattern = "sort-order:asc sort:published %s" % keyword
-        self.query.start_time = datetime.datetime.utcnow() - datetime.timedelta(hours=48)
+        self.query.start_time = datetime.datetime.now(pytz.utc) - datetime.timedelta(hours=48)
         self.query.language = language
 
     def each(self):
