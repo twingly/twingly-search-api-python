@@ -1,4 +1,5 @@
-future
-requests
+-r requirements.txt
+
 nose
 betamax
+python-dateutil

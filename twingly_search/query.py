@@ -1,4 +1,5 @@
 import datetime
+from pytz import utc
 
 from twingly_search.errors import TwinglyQueryException
 
@@ -18,13 +19,17 @@ class Query(object):
         language    (string) language which language to restrict the query to
         client      (Client) the client that this query is connected to
         start_time  (datetime.datetime) search for posts published after this time (inclusive)
+                    Assumes UTC if the datetime object has no timezone set.
         end_time    (datetime.datetime) search for posts published before this time (inclusive)
+                    Assumes UTC if the datetime object has no timezone set.
     """
     pattern = ''
     language = ''
     client = None
     start_time = None
     end_time = None
+
+    DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
     def __init__(self, client):
         """
@@ -64,28 +69,20 @@ class Query(object):
             'key': self.client.api_key,
             'searchpattern': self.pattern,
             'documentlang': self.language,
-            'ts': self._ts(),
-            'tsTo': self._tsTo(),
+            'ts': self._time_to_utc_string(self.start_time, "start_time"),
+            'tsTo': self._time_to_utc_string(self.end_time, "end_time"),
             'xmloutputversion': 2
         }
 
-    def _ts(self):
-        if self.start_time is not None:
-            if isinstance(self.start_time, datetime.datetime):
-                return self.start_time.strftime("%Y-%m-%d %H:%M:%S")
-            elif isinstance(self.start_time, basestring):
-                return self.start_time
-            else:
-                return ''
-        else:
-            return ''
-
-    def _tsTo(self):
-        if self.end_time is not None:
-            if isinstance(self.end_time, datetime.datetime):
-                return self.end_time.strftime("%Y-%m-%d %H:%M:%S")
-            elif isinstance(self.end_time, basestring):
-                return self.end_time
+    def _time_to_utc_string(self, time, attr_name):
+        if time is not None:
+            if isinstance(time, datetime.datetime):
+                time_in_utc = time
+                if time.tzinfo is not None:
+                    time_in_utc = time.astimezone(utc)
+                return time_in_utc.strftime(self.DATETIME_FORMAT)
+            elif isinstance(time, basestring):
+                return time
             else:
                 return ''
         else:

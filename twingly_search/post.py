@@ -1,4 +1,5 @@
 import datetime
+from pytz import utc
 
 class Post(object):
     """
@@ -19,17 +20,19 @@ class Post(object):
                         (https://developer.twingly.com/resources/search/#authority)
          tags           (list of string) tags
     """
-    url = ''
-    title = ''
-    summary = ''
-    language_code = ''
-    published = datetime.datetime.strptime("1970-01-01 00:00:00Z", '%Y-%m-%d %H:%M:%SZ')
-    indexed = datetime.datetime.strptime("1970-01-01 00:00:00Z", '%Y-%m-%d %H:%M:%SZ')
-    blog_url = ''
-    blog_name = ''
-    authority = 0
-    blog_rank = 0
-    tags = []
+
+    def __init__(self):
+        self.url = ''
+        self.title = ''
+        self.summary = ''
+        self.language_code = ''
+        self.published = self._parse_time("1970-01-01 00:00:00Z")
+        self.indexed = self._parse_time("1970-01-01 00:00:00Z")
+        self.blog_url = ''
+        self.blog_name = ''
+        self.authority = 0
+        self.blog_rank = 0
+        self.tags = []
 
     def set_values(self, params):
         """
@@ -41,13 +44,17 @@ class Post(object):
         self.title = params['title']
         self.summary = params['summary']
         self.language_code = params['languageCode']
-        self.published = datetime.datetime.strptime(params['published'], '%Y-%m-%d %H:%M:%SZ')
-        self.indexed = datetime.datetime.strptime(params['indexed'], '%Y-%m-%d %H:%M:%SZ')
+        self.published = self._parse_time(params['published'])
+        self.indexed = self._parse_time(params['indexed'])
         self.blog_url = params['blogUrl']
         self.blog_name = params['blogName']
         self.authority = int(params['authority'])
         self.blog_rank = int(params['blogRank'])
         self.tags = params['tags']
+
+    def _parse_time(self, time):
+        parsed_time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%SZ')
+        return utc.localize(parsed_time)
 
     def __unicode__(self):
         return "%s %s" % (self.title, self.url)
