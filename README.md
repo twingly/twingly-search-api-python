@@ -70,9 +70,7 @@ To learn more about the capabilities of the API, please read the [Twingly Search
 ## Requirements
 
 * API key, contact sales@twingly.com via [twingly.com](https://www.twingly.com/try-for-free/) to get one
-* Python
-  * Python 2.7+, 3.0+
-  * [Requests](https://pypi.python.org/pypi/requests)
+* Python 2.7+, 3.0+
 
 ## Release
 
