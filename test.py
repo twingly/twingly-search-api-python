@@ -3,7 +3,6 @@ import unittest
 
 from betamax import Betamax
 
-
 with Betamax.configure() as config:
     config.cassette_library_dir = './tests/fixtures/vcr_cassettes'
     if os.environ.get('TWINGLY_SEARCH_KEY') is None:

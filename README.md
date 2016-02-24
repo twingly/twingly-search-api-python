@@ -67,6 +67,16 @@ Example code can be found in [examples/](examples/).
 
 To learn more about the capabilities of the API, please read the [Twingly Search API documentation](https://developer.twingly.com/resources/search/).
 
+# Tests
+
+Install the tests dependencies
+
+    make deps
+
+Run the tests
+
+    make test
+
 ## Requirements
 
 * API key, contact sales@twingly.com via [twingly.com](https://www.twingly.com/try-for-free/) to get one
