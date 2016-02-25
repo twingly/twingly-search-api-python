@@ -95,10 +95,15 @@ class Query(object):
         if time is None:
             return ''
 
-        time_in_utc = time
-        if time.tzinfo is not None:
-            time_in_utc = time.astimezone(utc)
+        time_in_utc = self._time_to_utc(time)
+
         return time_in_utc.strftime(self.DATETIME_FORMAT)
+
+    def _time_to_utc(self, time):
+        if time.tzinfo is None:
+            return time
+
+        return time.astimezone(utc)
 
     def _assert_valid_time(self, time):
         if time is None:
