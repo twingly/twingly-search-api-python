@@ -14,14 +14,11 @@ class Result(object):
         posts                       (list of Post) all posts that matched the query
     """
 
-    number_of_matches_returned = 0
-    seconds_elapsed = 0.0
-    number_of_matches_total = 0
-
-    posts = []
-
     def __init__(self):
-        pass
+        self.number_of_matches_returned = 0
+        self.number_of_matches_total = 0
+        self.seconds_elapsed = 0.0
+        self.posts = []
 
     def all_results_returned(self):
         """

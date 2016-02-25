@@ -23,11 +23,6 @@ class Query(object):
         end_time    (datetime.datetime) search for posts published before this time (inclusive)
                     Assumes UTC if the datetime object has no timezone set.
     """
-    pattern = ''
-    language = ''
-    client = None
-    start_time = None
-    end_time = None
 
     DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
@@ -38,6 +33,10 @@ class Query(object):
         :param client: the client that this query should be connected to
         """
         self.client = client
+        self.pattern = ''
+        self.language = ''
+        self.start_time = None
+        self.end_time = None
 
     def url(self):
         """
