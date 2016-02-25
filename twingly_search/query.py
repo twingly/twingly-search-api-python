@@ -102,7 +102,7 @@ class Query(object):
 
     def _assert_valid_time(self, time):
         if time is None:
-            return;
+            return
 
         if not isinstance(time, datetime.datetime):
             raise TwinglyQueryException("Not a datetime object")
