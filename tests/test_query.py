@@ -73,6 +73,12 @@ class QueryTest(unittest.TestCase):
         with self.assertRaises(twingly_search.TwinglyQueryException):
             q.start_time = "This is not a datetime object"
 
+    def test_query_where_start_time_is_set_to_none(self):
+        q = self._client.query()
+        q.start_time = datetime.now()
+        q.start_time = None
+        self.assertIsNone(q.start_time)
+
     def test_query_should_add_end_time(self):
         q = self._client.query()
         q.pattern = "spotify"
@@ -101,6 +107,12 @@ class QueryTest(unittest.TestCase):
         q = self._client.query()
         with self.assertRaises(twingly_search.TwinglyQueryException):
             q.end_time = "This is not a datetime object"
+
+    def test_query_where_end_time_is_set_to_none(self):
+        q = self._client.query()
+        q.end_time = datetime.now()
+        q.end_time = None
+        self.assertIsNone(q.end_time)
 
     def test_query_should_encode_url_parameters(self):
         q = self._client.query()
