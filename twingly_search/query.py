@@ -35,8 +35,26 @@ class Query(object):
         self.client = client
         self.pattern = ''
         self.language = ''
-        self.start_time = None
-        self.end_time = None
+        self._start_time = None
+        self._end_time = None
+
+    @property
+    def start_time(self):
+        return self._start_time
+
+    @start_time.setter
+    def start_time(self, time):
+        self._assert_valid_time(time)
+        self._start_time = time
+
+    @property
+    def end_time(self):
+        return self._end_time
+
+    @end_time.setter
+    def end_time(self, time):
+        self._assert_valid_time(time)
+        self._end_time = time
 
     def url(self):
         """
@@ -68,21 +86,23 @@ class Query(object):
             'key': self.client.api_key,
             'searchpattern': self.pattern,
             'documentlang': self.language,
-            'ts': self._time_to_utc_string(self.start_time, "start_time"),
-            'tsTo': self._time_to_utc_string(self.end_time, "end_time"),
+            'ts': self._time_to_utc_string(self.start_time),
+            'tsTo': self._time_to_utc_string(self.end_time),
             'xmloutputversion': 2
         }
 
-    def _time_to_utc_string(self, time, attr_name):
-        if time is not None:
-            if isinstance(time, datetime.datetime):
-                time_in_utc = time
-                if time.tzinfo is not None:
-                    time_in_utc = time.astimezone(utc)
-                return time_in_utc.strftime(self.DATETIME_FORMAT)
-            elif isinstance(time, basestring):
-                return time
-            else:
-                return ''
-        else:
+    def _time_to_utc_string(self, time):
+        if time is None:
             return ''
+
+        time_in_utc = time
+        if time.tzinfo is not None:
+            time_in_utc = time.astimezone(utc)
+        return time_in_utc.strftime(self.DATETIME_FORMAT)
+
+    def _assert_valid_time(self, time):
+        if time is None:
+            return;
+
+        if not isinstance(time, datetime.datetime):
+            raise TwinglyQueryException("Not a datetime object")
