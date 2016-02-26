@@ -68,6 +68,17 @@ class QueryTest(unittest.TestCase):
         q.end_time = dateutil.parser.parse("2012-12-28 09:01:22 -0800")
         self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 17:01:22")
 
+    def test_query_when_start_time_is_not_a_datetime(self):
+        q = self._client.query()
+        with self.assertRaises(twingly_search.TwinglyQueryException):
+            q.start_time = "This is not a datetime object"
+
+    def test_query_where_start_time_is_set_to_none(self):
+        q = self._client.query()
+        q.start_time = datetime.now()
+        q.start_time = None
+        self.assertIsNone(q.start_time)
+
     def test_query_should_add_end_time(self):
         q = self._client.query()
         q.pattern = "spotify"
@@ -91,6 +102,17 @@ class QueryTest(unittest.TestCase):
         q.pattern = "spotify"
         q.end_time = dateutil.parser.parse("2012-12-28 09:01:22 +0800")
         self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 01:01:22")
+
+    def test_query_when_end_time_is_not_a_datetime(self):
+        q = self._client.query()
+        with self.assertRaises(twingly_search.TwinglyQueryException):
+            q.end_time = "This is not a datetime object"
+
+    def test_query_where_end_time_is_set_to_none(self):
+        q = self._client.query()
+        q.end_time = datetime.now()
+        q.end_time = None
+        self.assertIsNone(q.end_time)
 
     def test_query_should_encode_url_parameters(self):
         q = self._client.query()
