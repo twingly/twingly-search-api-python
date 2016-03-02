@@ -46,28 +46,36 @@ for post in result.posts:
     print post.url
 ```
 
+Example code can be found in [examples/](examples/).
+
 The `twingly_search` library talks to a commercial blog search API and requires an API key. Best practice is to set the `TWINGLY_SEARCH_KEY` environment variable to the obtained key. `twingly_search.Client` can be passed a key at initialization if your setup does not allow environment variables.
 
-Library is documented with [pydoc](https://docs.python.org/2/library/pydoc.html). To read documentation in shell you can
-use
+To learn more about the capabilities of the API, please read the [Twingly Search API documentation](https://developer.twingly.com/resources/search/).
+
+### Documentation
+
+`twingly_search` is documented with [pydoc](https://docs.python.org/2/library/pydoc.html). To read the documentation directly in your console you can run
 
 ```shell
 pydoc twingly_search
 ```
 
-or you can run local web server with documentation with
+or you can start a local pydoc web server with
 
 ```shell
-pydoc -p 1234
+pydoc -p 1234 twingly_search
 ```
 
 In this case documentation will be available at [http://localhost:1234/twingly_search.html](http://localhost:1234/twingly_search.html)
 
-Example code can be found in [examples/](examples/).
+## Requirements
 
-To learn more about the capabilities of the API, please read the [Twingly Search API documentation](https://developer.twingly.com/resources/search/).
+* API key, contact sales@twingly.com via [twingly.com](https://www.twingly.com/try-for-free/) to get one
+* Python 2.7+, 3.0+
 
-# Tests
+## Development
+
+### Tests
 
 Install the tests dependencies
 
@@ -77,12 +85,7 @@ Run the tests
 
     make test
 
-## Requirements
-
-* API key, contact sales@twingly.com via [twingly.com](https://www.twingly.com/try-for-free/) to get one
-* Python 2.7+, 3.0+
-
-## Release
+### Release
 
 You will need pandoc to convert README.md to reStructuredText:
 
