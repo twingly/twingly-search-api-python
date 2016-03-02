@@ -35,6 +35,14 @@ class ParserTest(unittest.TestCase):
         self.assertIsInstance(r, twingly_search.Result)
         self.assertEqual(len(r.posts), 1)
 
+    def test_with_valid_empty_result(self):
+        data = self.get_fixture("valid_empty_result")
+        r = twingly_search.Parser().parse(data)
+        self.assertIsInstance(r, twingly_search.Result)
+        self.assertEqual(len(r.posts), 0)
+        self.assertEqual(r.number_of_matches_total, 0)
+        self.assertEqual(r.number_of_matches_returned, 0)
+
     def test_with_nonexistent_api_key_result(self):
         with self.assertRaises(twingly_search.TwinglyAuthException):
             data = self.get_fixture("nonexistent_api_key_result")
