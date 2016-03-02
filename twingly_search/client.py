@@ -25,7 +25,8 @@ class Client(object):
     def __init__(self, api_key=None, user_agent=None):
         """
         :param api_key: (string) Twingly Search API Key
-        :param user_agent: (string) User Agent for client
+        :param user_agent: (string) the user agent to be used for
+            all API requests
         """
 
         if api_key is None:
@@ -45,7 +46,7 @@ class Client(object):
 
     def query(self):
         """
-        Returns a new <twingly_search.Query> object connected to this client
+        Returns a new Query object connected to this client
 
         :return: Query
         """

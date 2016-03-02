@@ -16,10 +16,10 @@ from twingly_search.errors import *
 class Parser:
     def parse(self, document):
         """
-        Parse an API response body.
+        Parse an API response body
 
         :param document: containing an API response XML
-        :return: containing the Result
+        :return: Result
         """
         try:
             doc = ET.XML(document)

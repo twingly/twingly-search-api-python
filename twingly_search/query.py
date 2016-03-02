@@ -15,20 +15,20 @@ class Query(object):
     Twingly Search API Query
 
     Attributes:
-        pattern     (string) pattern the search query
-        language    (string) language which language to restrict the query to
-        client      (Client) the client that this query is connected to
-        start_time  (datetime.datetime) search for posts published after this time (inclusive)
-                    Assumes UTC if the datetime object has no timezone set.
-        end_time    (datetime.datetime) search for posts published before this time (inclusive)
-                    Assumes UTC if the datetime object has no timezone set.
+        pattern    (string) pattern the search query
+        language   (string) language which language to restrict the query to
+        client     (Client) the client that this query is connected to
+        start_time (datetime.datetime) search for posts published after this time (inclusive)
+                   Assumes UTC if the datetime object has no timezone set
+        end_time   (datetime.datetime) search for posts published before this time (inclusive)
+                   Assumes UTC if the datetime object has no timezone set
     """
 
     DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
     def __init__(self, client):
         """
-        No need to call this method manually, instead use {Client#query}.
+        No need to call this method manually, instead use Client#query.
 
         :param client: the client that this query should be connected to
         """
@@ -64,8 +64,14 @@ class Query(object):
 
     def execute(self):
         """
-        Executes the query and returns the result
-        :return: the result for this query
+        Executes the Query and returns the result
+
+        :return: the Result for this query
+        :raises TwinglyQueryException: if pattern is empty
+        :raises TwinglyAuthException: if the API couldn't authenticate you
+            Make sure your API key is correct
+        :raises TwinglyServerException: if the query could not be executed
+            due to a server error
         """
         return self.client.execute_query(self)
 
@@ -78,6 +84,7 @@ class Query(object):
     def request_parameters(self):
         """
         :return: the request parameters
+        :raises TwinglyQueryException: if pattern is empty
         """
         if len(self.pattern) == 0:
             raise TwinglyQueryException("Missing pattern")

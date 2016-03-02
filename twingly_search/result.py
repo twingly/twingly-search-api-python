@@ -8,10 +8,10 @@ class Result(object):
     Represents a result from a Query to the Search API
 
     Attributes:
-        number_of_matches_returned  (int) number of Post the query returned
-        number_of_matches_total     (int) total number of Post the query matched
-        seconds_elapsed             (float) number of seconds it took to execute the query
-        posts                       (list of Post) all posts that matched the query
+        number_of_matches_returned (int) number of Posts the Query returned
+        number_of_matches_total    (int) total number of Posts the Query matched
+        seconds_elapsed            (float) number of seconds it took to execute the Query
+        posts                      (list of Post) all Posts that matched the Query
     """
 
     def __init__(self):
@@ -22,7 +22,8 @@ class Result(object):
 
     def all_results_returned(self):
         """
-        :return: (boolean) returns True if this result includes all Posts that matched the query
+        :return: (boolean) returns True if this result includes all Posts that
+            matched the query, False if there are more Posts to fetch from the API
         """
         return self.number_of_matches_total == self.number_of_matches_returned
 
