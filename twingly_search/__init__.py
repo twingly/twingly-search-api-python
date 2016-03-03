@@ -4,7 +4,7 @@
 from __future__ import absolute_import
 
 __author__ = 'Twingly AB'
-__version__ = '1.0'
+__version__ = '1.2.0'
 
 from .client import Client
 from .errors import TwinglyException
