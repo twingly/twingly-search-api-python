@@ -94,7 +94,7 @@ You will need pandoc to convert README.md to reStructuredText:
     brew install pandoc
     pip install pypandoc
 
-Bump the version in [setup.py](./setup.py) and [\__init\__.py](./twingly-search/__init__.py)
+Bump the version in [setup.py](./setup.py) and [\__init\__.py](./twingly-search/__init__.py).
 
 Publish to [PyPi]:
 
