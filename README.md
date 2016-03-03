@@ -87,18 +87,21 @@ Run the tests
 
 ### Release
 
+To be able to publish the package, create a [.pypirc file] containing your pypi username an password.
+
 You will need pandoc to convert README.md to reStructuredText:
 
     brew install pandoc
     pip install pypandoc
 
-Bump the version in [setup.py](./setup.py).
+Bump the version in [setup.py](./setup.py) and [\__init\__.py](./twingly-search/__init__.py)
 
 Publish to [PyPi]:
 
     ./publish-to-pypi.sh
 
 [PyPi]: https://pypi.python.org/pypi/twingly-search
+[.pypirc file]: https://docs.python.org/2/distutils/packageindex.html#pypirc
 
 ## License
 
