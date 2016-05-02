@@ -70,7 +70,7 @@ In this case documentation will be available at [http://localhost:1234/twingly_s
 
 ## Requirements
 
-* API key, contact sales@twingly.com via [twingly.com](https://www.twingly.com/try-for-free/) to get one
+* API key, [sign up](https://www.twingly.com/try-for-free) via [twingly.com](https://www.twingly.com/) to get one
 * Python 2.7+, 3.0+
 
 ## Development
