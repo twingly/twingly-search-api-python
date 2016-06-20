@@ -71,8 +71,9 @@ In this case documentation will be available at [http://localhost:1234/twingly_s
 ## Requirements
 
 * API key, [sign up](https://www.twingly.com/try-for-free) via [twingly.com](https://www.twingly.com/) to get one
-* Python 2.7+, 3.0+ with SNI support, see [Requests FAQ] for more information
+* Python 2.7+, 3.0+ with [SNI] support, see [Requests FAQ] for more information
 
+[SNI]: https://en.wikipedia.org/wiki/Server_Name_Indication
 [Requests FAQ]: http://docs.python-requests.org/en/master/community/faq/#what-are-hostname-doesn-t-match-errors
 
 ## Development
