@@ -3,6 +3,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+
 class Result(object):
     """
     Represents a result from a Query to the Search API
@@ -18,6 +19,7 @@ class Result(object):
         self.number_of_matches_returned = 0
         self.number_of_matches_total = 0
         self.seconds_elapsed = 0.0
+        self.incomplete_result = False
         self.posts = []
 
     def all_results_returned(self):

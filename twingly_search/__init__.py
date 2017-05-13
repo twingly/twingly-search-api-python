@@ -4,14 +4,14 @@
 from __future__ import absolute_import
 
 __author__ = 'Twingly AB'
-__version__ = '1.2.1'
+__version__ = '3.0.0-SNAPSHOT'
 
 from .client import Client
-from .errors import TwinglyException
-from .errors import TwinglyAuthException
-from .errors import TwinglyQueryException
-from .errors import TwinglyServerException
+from .errors import TwinglySearchException
+from .errors import TwinglySearchErrorException
+from .errors import TwinglySearchServerException
+from .errors import TwinglySearchClientException
+from .errors import Error
 from .parser import Parser
 from .post import Post
-from .query import Query
 from .result import Result
