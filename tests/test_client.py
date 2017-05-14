@@ -39,3 +39,14 @@ class ClientTest(unittest.TestCase):
                 c.execute_query(q)
 
         os.environ['TWINGLY_SEARCH_KEY'] = temp_key
+
+    def test_search_for_spotify_on_sv_blogs(self):
+        c = twingly_search.Client()
+
+        with Betamax(c._session).use_cassette('search_for_spotify_on_sv_blogs'):
+            q = 'spotify page-size:10 lang:sv'
+            result = c.execute_query(q)
+            self.assertIsNotNone(result)
+            self.assertEqual(result.incomplete_result, False)
+            self.assertEqual(result.number_of_matches_returned, 10)
+            self.assertEqual(len(result.posts), 10)
