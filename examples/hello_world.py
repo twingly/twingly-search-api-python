@@ -1,11 +1,12 @@
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import twingly_search
-import datetime
 
 client = twingly_search.Client()
-query = client.query()
-query.pattern = '"hello world"'
-query.start_time = datetime.datetime.utcnow() - datetime.timedelta(hours=1)
-results = query.execute()
+q = '"hello world" tspan:24h'
+results = client.execute_query(q)
 
 for post in results.posts:
     print(post.url)
