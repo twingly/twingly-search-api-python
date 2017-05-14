@@ -38,12 +38,13 @@ class Post(object):
     """
 
     def __init__(self):
+        self.DEFAULT_DATE = self._parse_time("1970-01-01T00:00:00Z")
         self.url = ''
         self.title = ''
         self.text = ''
         self.language_code = ''
-        self.published_at = self._parse_time("1970-01-01T00:00:00Z")
-        self.indexed_at = self._parse_time("1970-01-01T00:00:00Z")
+        self.published_at = self.DEFAULT_DATE
+        self.indexed_at = self.DEFAULT_DATE
         self.blog_url = ''
         self.blog_name = ''
         self.blog_id = ''
@@ -54,7 +55,7 @@ class Post(object):
         self.author = ''
         self.location_code = ''
         self.inlinks_count = 0
-        self.reindexed_at = self._parse_time("1970-01-01T00:00:00Z")
+        self.reindexed_at = self.DEFAULT_DATE
         self.links = []
         self.images = []
         self.coordinates = ''
@@ -65,29 +66,29 @@ class Post(object):
 
         :param params: (dict) containing blog post data
         """
-        self.url = params['url']
-        self.title = params['title']
-        self.text = params['text']
-        self.language_code = params['languageCode']
-        self.published_at = self._parse_time(params['publishedAt'])
-        self.indexed_at = self._parse_time(params['indexedAt'])
-        self.blog_url = params['blogUrl']
-        self.blog_name = params['blogName']
-        self.blog_id = params['blogId']
-        self.authority = int(params['authority'])
-        self.blog_rank = int(params['blogRank'])
-        self.tags = params['tags']
-        self.id = params['id']
-        self.author = params['author']
-        self.location_code = params['locationCode']
-        self.inlinks_count = int(params['inlinksCount'])
-        self.reindexed_at = self._parse_time(params['reindexedAt'])
-        self.links = params['links']
-        self.images = params['images']
-        self.coordinates = params['coordinates']
+        self.url = params.get("url", "") or ""
+        self.title = params.get("title", "") or ""
+        self.text = params.get("text", "") or ""
+        self.language_code = params.get("languageCode", "") or ""
+        self.published_at = self._parse_time(params["publishedAt"]) or self.DEFAULT_DATE
+        self.indexed_at = self._parse_time(params["indexedAt"]) or self.DEFAULT_DATE
+        self.blog_url = params.get("blogUrl", "") or ""
+        self.blog_name = params.get("blogName", "") or ""
+        self.blog_id = params.get("blogId", "") or ""
+        self.authority = int(params["authority"])
+        self.blog_rank = int(params["blogRank"])
+        self.tags = params.get("tags", "") or ""
+        self.id = params.get("id", "") or ""
+        self.author = params.get("author", "") or ""
+        self.location_code = params.get("locationCode", "") or ""
+        self.inlinks_count = int(params["inlinksCount"])
+        self.reindexed_at = self._parse_time(params["reindexedAt"]) or self.DEFAULT_DATE
+        self.links = params.get("links", [])
+        self.images = params.get("images", [])
+        self.coordinates = params.get("coordinates", "") or ""
 
     def _parse_time(self, time):
-        parsed_time = datetime.datetime.strptime(time, '%Y-%m-%dT%H:%M:%SZ')
+        parsed_time = datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%SZ")
         return utc.localize(parsed_time)
 
     def __unicode__(self):
