@@ -34,10 +34,11 @@ class SimpleSearchCli(object):
 
     def start(self):
         # See https://developer.twingly.com/resources/search-language/
-        pattern = raw_input("What do you want to search for? ")
-        start_time = self._read_time_from_stdin("Start time")
-        end_time = self._read_time_from_stdin("End time")
-        q = "%s start-date:%s end-date:%s" % (pattern, start_time, end_time)
+        query = self.client.query()
+        query.search_query = raw_input("What do you want to search for? ")
+        query.start_date = self._read_time_from_stdin("Start time")
+        query.end_date = self._read_time_from_stdin("End time")
+        q = query.build_query_string()
 
         results = self.client.execute_query(q)
 

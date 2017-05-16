@@ -7,6 +7,9 @@ import os
 
 import requests
 
+from twingly_search.constants import TWINGLY_SEARCH_KEY
+from twingly_search.query import Query
+
 try:
     # python 3
     from urllib.parse import urlencode
@@ -51,6 +54,14 @@ class Client(object):
         self._session = requests.Session()
         self._session.headers.update({'User-Agent': self._user_agent})
 
+    def query(self):
+        """
+        Returns a new Query object connected to this client
+
+        :return: Query
+        """
+        return Query(self)
+
     def execute_query(self, q):
         """
         Executes the given search query and returns the result
@@ -62,7 +73,7 @@ class Client(object):
         return Parser().parse(response_body)
 
     def _env_api_key(self):
-        return os.environ.get('TWINGLY_SEARCH_KEY')
+        return os.environ.get(TWINGLY_SEARCH_KEY)
 
     def _get_response(self, q):
         query_string = self._build_query_string(q)
@@ -73,6 +84,12 @@ class Client(object):
         search_parameters = self._url_parameters(q)
         query_string = "%s?%s" % (self.API_URL, search_parameters)
         return query_string
+
+    def endpoint_url(self):
+        """
+        :return: API endpoint URL
+        """
+        return self.API_URL
 
     def _url_parameters(self, q):
         """

@@ -32,6 +32,10 @@ class TwinglySearchException(Exception):
         """
         if error is not None and error.code is not None:
             if error.code.startswith('4'):
+                if error.code.startswith('400') or error.code.startswith('404'):
+                    raise TwinglySearchQueryException(error)
+                if error.code.startswith('401') or error.code.startswith('402'):
+                    raise TwinglySearchAuthenticationException(error)
                 raise TwinglySearchClientException(error)
             if error.code.startswith('5'):
                 raise TwinglySearchServerException(error)
@@ -49,4 +53,12 @@ class TwinglySearchServerException(TwinglySearchErrorException):
 
 
 class TwinglySearchClientException(TwinglySearchErrorException):
+    pass
+
+
+class TwinglySearchQueryException(TwinglySearchClientException):
+    pass
+
+
+class TwinglySearchAuthenticationException(TwinglySearchClientException):
     pass

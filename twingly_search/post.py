@@ -4,7 +4,11 @@ from __future__ import unicode_literals
 
 import datetime
 
+import deprecation
 from pytz import utc
+
+import twingly_search
+from twingly_search.constants import RESULT_DATE_TIME_FORMAT
 
 
 class Post(object):
@@ -15,9 +19,12 @@ class Post(object):
         url           (string) the post URL
         title         (string) the post title
         text          (string) the blog post text
+        summary       (string) DEPRECATED - see text
         language_code (string) ISO two letter language code for the language that the post was written in
         published_at  (datetime.datetime) the time, in UTC, when this post was published
+        published     (datetime.datetime) DEPRECATED - see published_at
         indexed_at    (datetime.datetime) the time, in UTC, when this post was indexed by Twingly
+        indexed       (datetime.datetime) DEPRECATED - see indexed_at
         blog_url      (string) the blog URL
         blog_name     (string) name of the blog
         blog_rank     (int) the rank of the blog, based on authority and language
@@ -60,6 +67,24 @@ class Post(object):
         self.images = []
         self.coordinates = ''
 
+    @property
+    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+                            details="Use 'indexed_at' field instead")
+    def indexed(self):
+        return self.indexed_at
+
+    @property
+    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+                            details="Use 'published_at' field instead")
+    def published(self):
+        return self.published_at
+
+    @property
+    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+                            details="Use 'text' field instead")
+    def summary(self):
+        return self.text
+
     def set_values(self, params):
         """
         Sets all instance variables for the Post, given a dict.
@@ -88,7 +113,7 @@ class Post(object):
         self.coordinates = params.get("coordinates", "") or ""
 
     def _parse_time(self, time):
-        parsed_time = datetime.datetime.strptime(time, "%Y-%m-%dT%H:%M:%SZ")
+        parsed_time = datetime.datetime.strptime(time, RESULT_DATE_TIME_FORMAT)
         return utc.localize(parsed_time)
 
     def __unicode__(self):

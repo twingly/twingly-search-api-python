@@ -196,7 +196,7 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(error.message, 'Parameter apikey may not be empty')
 
     def test_with_unauthorized_api_key_result(self):
-        with self.assertRaises(twingly_search.TwinglySearchClientException) as cm:
+        with self.assertRaises(twingly_search.TwinglySearchAuthenticationException) as cm:
             data = self.get_fixture("unauthorized_api_key_result")
             r = twingly_search.Parser().parse(data)
         ex = cm.exception
