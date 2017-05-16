@@ -122,7 +122,7 @@ class Query(object):
         self.end_date = time
 
     @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="Use Client directly with build_query_string function instead. with build_query_string function instead.")
+                            details="Use Client directly with build_query_string function instead.")
     def url(self):
         """
         :return: request url for the query
