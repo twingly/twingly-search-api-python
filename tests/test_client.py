@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import os
 import unittest
 
+import dateutil.parser
 from betamax import Betamax
 
 import twingly_search
@@ -55,3 +56,17 @@ class ClientTest(unittest.TestCase):
             self.assertEqual(result.incomplete_result, False)
             self.assertEqual(result.number_of_matches_returned, 10)
             self.assertEqual(len(result.posts), 10)
+
+    def test_search_for_spotify_on_sv_blogs_using_query_object(self):
+        c = twingly_search.Client()
+
+        with Betamax(c._session).use_cassette('search_for_spotify_on_sv_blogs_using_query'):
+            q = c.query()
+            q.search_query = 'spotify page-size:20'
+            q.language = 'en'
+            q.start_time = dateutil.parser.parse("2017-03-09 18:03:43")
+            result = c.execute_query(q)
+            self.assertIsNotNone(result)
+            self.assertEqual(result.incomplete_result, False)
+            self.assertEqual(result.number_of_matches_returned, 1)
+            self.assertEqual(len(result.posts), 1)

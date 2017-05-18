@@ -13,13 +13,12 @@ class SearchPostStream:
         self.q = self.client.query()
         self.q.search_query = "%s sort-order:asc sort:published " % keyword
         self.q.language = language
-        self.q.start_date = datetime.datetime.utcnow() - datetime.timedelta(weeks=10)
+        self.q.start_time = datetime.datetime.utcnow() - datetime.timedelta(weeks=10)
         self.keyword = keyword
 
     def each(self):
         while True:
-            query_string = self.q.build_query_string()
-            result = self.client.execute_query(query_string)
+            result = self.client.execute_query(self.q)
 
             for post in result.posts:
                 yield post
@@ -28,7 +27,7 @@ class SearchPostStream:
                 break
 
             last_published_date = result.posts[-1].published_at
-            self.q.start_date = last_published_date
+            self.q.start_time = last_published_date
 
 
 stream = SearchPostStream("(github) AND (hipchat OR slack)")

@@ -4,6 +4,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import types
 
 import requests
 
@@ -67,23 +68,47 @@ class Client(object):
         Executes the given search query and returns the result
 
         :param q: the search query to be executed
+        :type q: unicode | str | Query
         :return: Result
         """
-        response_body = self._get_response(q).content
-        return Parser().parse(response_body)
+        query_string = self._get_query_string(q)
+        response_body = self._get_response(query_string).content
+        result = Parser().parse(response_body)
+        return result
 
-    def _env_api_key(self):
+    def _get_query_string(self, q):
+        if self._is_string(q):
+            return q
+        return q.build_query_string()
+
+    @staticmethod
+    def _is_string(q):
+        try:
+            return isinstance(q, types.StringTypes)
+        except NameError:
+            # python 3
+            return isinstance(q, str)
+
+    @staticmethod
+    def _env_api_key():
         return os.environ.get(TWINGLY_SEARCH_KEY)
 
     def _get_response(self, q):
-        query_string = self._build_query_string(q)
-        response = self._session.get(query_string)
+        """
+        Make request with query string and return response
+        :param q: query string
+        :type q: str
+        :return: response
+        :rtype requests.Response
+        """
+        query_url = self._build_query_url(q)
+        response = self._session.get(query_url)
         return response
 
-    def _build_query_string(self, q):
-        search_parameters = self._url_parameters(q)
-        query_string = "%s?%s" % (self.API_URL, search_parameters)
-        return query_string
+    def _build_query_url(self, q):
+        url_parameters = self._url_parameters(q)
+        query_url = "%s?%s" % (self.API_URL, url_parameters)
+        return query_url
 
     def endpoint_url(self):
         """

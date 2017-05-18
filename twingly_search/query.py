@@ -33,30 +33,31 @@ class Query(object):
         No need to call this method manually, instead use Client#query.
 
         :param client: the client that this query should be connected to
+        :type client: twingly_search.Client
         """
         self.client = client
         self.search_query = ''
         self._language = ''
-        self._start_date = None
-        self._end_date = None
+        self._start_time = None
+        self._end_time = None
 
     @property
-    def start_date(self):
-        return self._start_date
+    def start_time(self):
+        return self._start_time
 
-    @start_date.setter
-    def start_date(self, time):
+    @start_time.setter
+    def start_time(self, time):
         self._assert_valid_time(time)
-        self._start_date = time
+        self._start_time = time
 
     @property
-    def end_date(self):
-        return self._end_date
+    def end_time(self):
+        return self._end_time
 
-    @end_date.setter
-    def end_date(self, time):
+    @end_time.setter
+    def end_time(self, time):
         self._assert_valid_time(time)
-        self._end_date = time
+        self._end_time = time
 
     def build_query_string(self):
         """
@@ -67,10 +68,10 @@ class Query(object):
         full_search_query = self.search_query
         if self._language:
             full_search_query += " lang: " + self._language
-        if self.start_date:
-            full_search_query += " start-date: " + self._time_to_utc_string(self.start_date)
-        if self.end_date:
-            full_search_query += " end-date: " + self._time_to_utc_string(self.end_date)
+        if self.start_time:
+            full_search_query += " start-date: " + self._time_to_utc_string(self.start_time)
+        if self.end_time:
+            full_search_query += " end-date: " + self._time_to_utc_string(self.end_time)
         return full_search_query
 
     @property
@@ -96,30 +97,6 @@ class Query(object):
                             details="Use 'search_query' field instead")
     def pattern(self, value):
         self.search_query = value
-
-    @property
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="Start time is part of Search pattern now. Use 'start-date: value' instead or start_date() function.")
-    def start_time(self):
-        return self.start_date
-
-    @start_time.setter
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="Start time is part of Search pattern now. Use 'start-date: value' instead or start_date() function.")
-    def start_time(self, time):
-        self.start_date = time
-
-    @property
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="End time is part of Search pattern now. Use 'end-date: value' instead or end_date() function.")
-    def end_time(self):
-        return self.end_date
-
-    @end_time.setter
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="End time is part of Search pattern now. Use 'end-date: value' instead or end_date() function.")
-    def end_time(self, time):
-        self.end_date = time
 
     @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
                             details="Use Client directly with build_query_string function instead.")
@@ -166,8 +143,8 @@ class Query(object):
             'key': self.client.api_key,
             'searchpattern': self.search_query,
             'documentlang': self.language,
-            'ts': self._time_to_utc_string(self.start_date),
-            'tsTo': self._time_to_utc_string(self.end_date),
+            'ts': self._time_to_utc_string(self.start_time),
+            'tsTo': self._time_to_utc_string(self.end_time),
             'xmloutputversion': 2
         }
 

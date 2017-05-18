@@ -45,11 +45,7 @@ class QueryTest(unittest.TestCase):
     def test_query_should_return_new_parameters_for_deprecated_ones(self):
         q = self._client.query()
         q.pattern = "spotify"
-        q.start_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
-        q.end_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
         self.assertEqual(q.pattern, q.search_query)
-        self.assertEqual(q.start_time, q.start_date)
-        self.assertEqual(q.end_time, q.end_date)
 
     def test_query_should_add_language(self):
         q = self._client.query()
@@ -60,14 +56,14 @@ class QueryTest(unittest.TestCase):
     def test_query_should_add_start_date(self):
         q = self._client.query()
         q.search_query = "spotify"
-        q.start_date = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
+        q.start_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
         query_string = q.build_query_string()
         self.assertEqual(query_string, "spotify start-date: 2012-12-28 09:01:22")
 
     def test_query_should_add_end_date(self):
         q = self._client.query()
         q.search_query = "spotify"
-        q.end_date = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
+        q.end_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
         query_string = q.build_query_string()
         self.assertEqual(query_string, "spotify end-date: 2012-12-28 09:01:22")
 
@@ -92,8 +88,8 @@ class QueryTest(unittest.TestCase):
         q = self._client.query()
         q.search_query = "spotify"
         q.language = "en"
-        q.start_date = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
-        q.end_date = self.datetime_with_timezone(datetime(2013, 12, 28, 9, 1, 22), "UTC")
+        q.start_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
+        q.end_time = self.datetime_with_timezone(datetime(2013, 12, 28, 9, 1, 22), "UTC")
         query_string = q.build_query_string()
         self.assertEqual(query_string,
                          "spotify lang: en start-date: 2012-12-28 09:01:22 end-date: 2013-12-28 09:01:22")
