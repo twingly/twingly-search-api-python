@@ -13,7 +13,7 @@
           "User-Agent": "Twingly Search Python Client/3.0.0"
         },
         "method": "GET",
-        "uri": "https://api.twingly.com/blog/search/api/v3/search?q=spotify+page-size%3A20+lang%3A+en+start-date%3A+2017-03-09+18%3A03%3A43&apiKey=<TWINGLY-API-KEY>"
+        "uri": "https://api.twingly.com/blog/search/api/v3/search?q=spotify+page-size%3A20+lang%3A+en+start-date%3A+2017-03-09T18%3A03%3A43Z&apiKey=<TWINGLY-API-KEY>"
       },
       "response": {
         "body": {
@@ -36,7 +36,7 @@
           "message": "OK",
           "code": 200
         },
-        "url": "https://api.twingly.com/blog/search/api/v3/search?q=spotify+page-size%3A20+lang%3A+en+start-date%3A+2017-03-09+18%3A03%3A43&apiKey=<TWINGLY-API-KEY>"
+        "url": "https://api.twingly.com/blog/search/api/v3/search?q=spotify+page-size%3A20+lang%3A+en+start-date%3A+2017-03-09T18%3A03%3A43Z&apiKey=<TWINGLY-API-KEY>"
       },
       "recorded_at": "2017-05-18T18:07:05"
     }

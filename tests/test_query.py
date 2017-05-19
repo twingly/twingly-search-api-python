@@ -58,14 +58,14 @@ class QueryTest(unittest.TestCase):
         q.search_query = "spotify"
         q.start_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
         query_string = q.build_query_string()
-        self.assertEqual(query_string, "spotify start-date: 2012-12-28 09:01:22")
+        self.assertEqual(query_string, "spotify start-date: 2012-12-28T09:01:22Z")
 
     def test_query_should_add_end_date(self):
         q = self._client.query()
         q.search_query = "spotify"
         q.end_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
         query_string = q.build_query_string()
-        self.assertEqual(query_string, "spotify end-date: 2012-12-28 09:01:22")
+        self.assertEqual(query_string, "spotify end-date: 2012-12-28T09:01:22Z")
 
     def test_query_should_add_lang(self):
         q = self._client.query()
@@ -82,7 +82,7 @@ class QueryTest(unittest.TestCase):
         q.end_time = self.datetime_with_timezone(datetime(2013, 12, 28, 9, 1, 22), "UTC")
         query_string = q.build_query_string()
         self.assertEqual(query_string,
-                         "spotify lang: en start-date: 2012-12-28 09:01:22 end-date: 2013-12-28 09:01:22")
+                         "spotify lang: en start-date: 2012-12-28T09:01:22Z end-date: 2013-12-28T09:01:22Z")
 
     def test_query_should_build_query_string(self):
         q = self._client.query()
@@ -92,31 +92,31 @@ class QueryTest(unittest.TestCase):
         q.end_time = self.datetime_with_timezone(datetime(2013, 12, 28, 9, 1, 22), "UTC")
         query_string = q.build_query_string()
         self.assertEqual(query_string,
-                         "spotify lang: en start-date: 2012-12-28 09:01:22 end-date: 2013-12-28 09:01:22")
+                         "spotify lang: en start-date: 2012-12-28T09:01:22Z end-date: 2013-12-28T09:01:22Z")
 
     def test_query_should_add_start_time(self):
         q = self._client.query()
         q.pattern = "spotify"
         q.start_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
-        self.assertEqual(q.request_parameters()['ts'], "2012-12-28 09:01:22")
+        self.assertEqual(q.request_parameters()['ts'], "2012-12-28T09:01:22Z")
 
     def test_query_using_start_time_without_timezone(self):
         q = self._client.query()
         q.pattern = "spotify"
         q.start_time = datetime(2012, 12, 28, 9, 1, 22)
-        self.assertEqual(q.request_parameters()['ts'], "2012-12-28 09:01:22")
+        self.assertEqual(q.request_parameters()['ts'], "2012-12-28T09:01:22Z")
 
     def test_query_using_start_time_with_timezone_other_than_utc(self):
         q = self._client.query()
         q.pattern = "spotify"
         q.start_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "Europe/Stockholm")
-        self.assertEqual(q.request_parameters()['ts'], "2012-12-28 08:01:22")
+        self.assertEqual(q.request_parameters()['ts'], "2012-12-28T08:01:22Z")
 
     def test_query_using_start_time_parsed_by_dateutil(self):
         q = self._client.query()
         q.pattern = "spotify"
         q.end_time = dateutil.parser.parse("2012-12-28 09:01:22 -0800")
-        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 17:01:22")
+        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28T17:01:22Z")
 
     def test_query_when_start_time_is_not_a_datetime(self):
         q = self._client.query()
@@ -127,25 +127,25 @@ class QueryTest(unittest.TestCase):
         q = self._client.query()
         q.pattern = "spotify"
         q.end_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
-        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 09:01:22")
+        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28T09:01:22Z")
 
     def test_query_using_end_time_without_timezone(self):
         q = self._client.query()
         q.pattern = "spotify"
         q.end_time = datetime(2012, 12, 28, 9, 1, 22)
-        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 09:01:22")
+        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28T09:01:22Z")
 
     def test_query_using_end_time_with_timezone_other_than_utc(self):
         q = self._client.query()
         q.pattern = "spotify"
         q.end_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "Europe/Stockholm")
-        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 08:01:22")
+        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28T08:01:22Z")
 
     def test_query_using_end_time_parsed_by_dateutil(self):
         q = self._client.query()
         q.pattern = "spotify"
         q.end_time = dateutil.parser.parse("2012-12-28 09:01:22 +0800")
-        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28 01:01:22")
+        self.assertEqual(q.request_parameters()['tsTo'], "2012-12-28T01:01:22Z")
 
     def test_query_when_end_time_is_not_a_datetime(self):
         q = self._client.query()
@@ -156,7 +156,7 @@ class QueryTest(unittest.TestCase):
         q = self._client.query()
         q.pattern = "spotify"
         q.end_time = self.datetime_with_timezone(datetime(2012, 12, 28, 9, 1, 22), "UTC")
-        self.assertIn("tsTo=2012-12-28+09%3A01%3A22", q.url_parameters())
+        self.assertIn("tsTo=2012-12-28T09%3A01%3A22", q.url_parameters())
 
     def test_query_pattern(self):
         q = self._client.query()

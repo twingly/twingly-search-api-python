@@ -8,7 +8,7 @@ import deprecation
 from pytz import utc
 
 import twingly_search
-from twingly_search.constants import RESULT_DATE_TIME_FORMAT
+from twingly_search.constants import DATE_TIME_FORMAT
 
 
 class Post(object):
@@ -113,7 +113,7 @@ class Post(object):
         self.coordinates = params.get("coordinates", "") or ""
 
     def _parse_time(self, time):
-        parsed_time = datetime.datetime.strptime(time, RESULT_DATE_TIME_FORMAT)
+        parsed_time = datetime.datetime.strptime(time, DATE_TIME_FORMAT)
         return utc.localize(parsed_time)
 
     def __unicode__(self):

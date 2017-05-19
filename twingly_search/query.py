@@ -4,7 +4,7 @@ import deprecation
 from pytz import utc
 
 import twingly_search
-from twingly_search.constants import QUERY_DATE_TIME_FORMAT
+from twingly_search.constants import DATE_TIME_FORMAT
 from twingly_search.errors import TwinglySearchQueryException
 
 try:
@@ -153,7 +153,7 @@ class Query(object):
             return ''
 
         time_in_utc = self._time_to_utc(time)
-        result = time_in_utc.strftime(QUERY_DATE_TIME_FORMAT)
+        result = time_in_utc.strftime(DATE_TIME_FORMAT)
         return result
 
     def _time_to_utc(self, time):
