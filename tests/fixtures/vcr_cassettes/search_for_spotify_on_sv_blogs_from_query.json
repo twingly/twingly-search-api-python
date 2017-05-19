@@ -13,7 +13,7 @@
           "User-Agent": "Twingly Search Python Client/3.0.0"
         },
         "method": "GET",
-        "uri": "https://api.twingly.com/blog/search/api/v3/search?q=spotify+page-size%3A10+lang%3A+sv&apiKey=<TWINGLY-API-KEY>"
+        "uri": "https://api.twingly.com/blog/search/api/v3/search?q=spotify+page-size%3A10+lang%3Asv&apiKey=<TWINGLY-API-KEY>"
       },
       "response": {
         "body": {

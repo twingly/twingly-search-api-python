@@ -67,11 +67,11 @@ class Query(object):
         """
         full_search_query = self.search_query
         if self._language:
-            full_search_query += " lang: " + self._language
+            full_search_query += " lang:" + self._language
         if self.start_time:
-            full_search_query += " start-date: " + self._time_to_utc_string(self.start_time)
+            full_search_query += " start-date:" + self._time_to_utc_string(self.start_time)
         if self.end_time:
-            full_search_query += " end-date: " + self._time_to_utc_string(self.end_time)
+            full_search_query += " end-date:" + self._time_to_utc_string(self.end_time)
         return full_search_query
 
     @property
@@ -134,18 +134,14 @@ class Query(object):
     def request_parameters(self):
         """
         :return: the request parameters
-        :raises TwinglySearchQueryException: if pattern is empty
+        :raises TwinglySearchQueryException: if search query is empty
         """
         if len(self.search_query) == 0:
             raise TwinglySearchQueryException("Missing search query")
 
         return {
-            'key': self.client.api_key,
-            'searchpattern': self.search_query,
-            'documentlang': self.language,
-            'ts': self._time_to_utc_string(self.start_time),
-            'tsTo': self._time_to_utc_string(self.end_time),
-            'xmloutputversion': 2
+            'apikey': self.client.api_key,
+            'q': self.build_query_string()
         }
 
     def _time_to_utc_string(self, time):
