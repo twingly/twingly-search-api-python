@@ -4,7 +4,6 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
-import types
 
 import requests
 
@@ -84,7 +83,7 @@ class Client(object):
     @staticmethod
     def _is_string(q):
         try:
-            return isinstance(q, types.StringTypes)
+            return isinstance(q, (str, unicode))
         except NameError:
             # python 3
             return isinstance(q, str)
