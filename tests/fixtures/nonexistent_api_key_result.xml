@@ -1,3 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?><blogstream xmlns="http://www.twingly.com">
-    <operationResult resultType="failure">The API key does not exist.</operationResult>
-</blogstream>
+<error code="40001">
+    <message>Parameter apikey may not be empty</message>
+</error>

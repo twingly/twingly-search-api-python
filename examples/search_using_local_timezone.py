@@ -1,7 +1,13 @@
-import twingly_search
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import datetime
+
 import dateutil.parser
 from dateutil.tz import *
+
+import twingly_search
 
 """
 Simple cli that lets you search in Twingly Search API using your local timezone
@@ -17,6 +23,8 @@ Example run:
     2016-02-09 20:21:36 - http://www.attwentynine.com/2016/02/09/chocolate-cake-cupcake
     ...
 """
+
+
 class SimpleSearchCli(object):
     CURRENT_TIMEZONE = tzlocal()
     CURRENT_TIMEZONE_NAME = datetime.datetime.now(CURRENT_TIMEZONE).tzname()
@@ -25,35 +33,40 @@ class SimpleSearchCli(object):
         self.client = twingly_search.Client()
 
     def start(self):
-        query = self.client.query()
-
         # See https://developer.twingly.com/resources/search-language/
-        query.pattern = raw_input("What do you want to search for? ")
-        query.start_time = self._read_time_from_stdin("Start time")
-        query.end_time = self._read_time_from_stdin("End time")
+        q = self.client.query()
+        q.search_query = raw_input("What do you want to search for? ")
+        q.start_time = self._read_time_from_stdin("Start time")
+        q.end_time = self._read_time_from_stdin("End time")
 
-        results = query.execute()
+        results = self.client.execute_query(q)
 
         self._print_results(results)
 
     def _read_time_from_stdin(self, time_label):
         prompt = "%s (in %s): " % (time_label, self.CURRENT_TIMEZONE_NAME)
+        user_input = raw_input(prompt)
+        parsed_time = self._parse_time_in_current_timezone(user_input)
+        return parsed_time
 
-        parsed_time = dateutil.parser.parse(raw_input(prompt))
+    def _parse_time_in_current_timezone(self, time_input):
+        parsed_time = dateutil.parser.parse(time_input)
         # Sets your local timezone on the parsed time object.
         # If no timezone is set, twingly_search assumes UTC.
-        return parsed_time.replace(tzinfo=self.CURRENT_TIMEZONE)
+        result = parsed_time.replace(tzinfo=self.CURRENT_TIMEZONE)
+        return result
 
     def _print_results(self, result):
-        print "Search results ---------------------"
-        print "Published (in %s) - Post URL" % self.CURRENT_TIMEZONE_NAME
+        print("Search results ---------------------")
+        print("Published (in %s) - Post URL" % self.CURRENT_TIMEZONE_NAME)
 
         for post in result.posts:
             # The time returned from the API is always in UTC,
             # convert it to your local timezone before displaying it.
-            local_datetime = post.published.astimezone(self.CURRENT_TIMEZONE)
+            local_datetime = post.published_at.astimezone(self.CURRENT_TIMEZONE)
             published_date_string = local_datetime.strftime("%Y-%m-%d %H:%M:%S")
 
-            print "%s - %s" % (published_date_string, post.url)
+            print("%s - %s" % (published_date_string, post.url))
+
 
 SimpleSearchCli().start()

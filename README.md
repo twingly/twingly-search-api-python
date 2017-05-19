@@ -33,14 +33,9 @@ from twingly_search import Client
 
 client = Client()
 
-query = client.query()
-query.pattern = 'github page-size:10'
-query.language = 'sv'
+q = 'github page-size: 10 lang:sv tspan:24h'
 
-# Assumes UTC if no timezone is specified
-query.start_time = datetime.datetime(2015, 2, 23, 15, 18, 13)
-
-result = query.execute()
+result = client.execute_query(q)
 
 for post in result.posts:
     print post.url

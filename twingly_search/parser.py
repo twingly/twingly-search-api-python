@@ -13,6 +13,7 @@ except ImportError:
 
 from twingly_search.errors import *
 
+
 class Parser:
     def parse(self, document):
         """
@@ -24,11 +25,10 @@ class Parser:
         try:
             doc = ET.XML(document)
         except Exception as e:
-            raise TwinglyServerException(e)
+            raise TwinglySearchException(e)
 
-        if doc.find('{http://www.twingly.com}operationResult') is not None:
-            if doc.find('{http://www.twingly.com}operationResult').attrib['resultType'] == 'failure':
-                self._handle_failure(doc.find('{http://www.twingly.com}operationResult'))
+        if 'error' == doc.tag:
+            self._handle_error(doc)
 
         if 'twinglydata' != doc.tag:
             self._handle_non_xml_document(doc)
@@ -41,19 +41,21 @@ class Parser:
         result.number_of_matches_returned = int(data_node.attrib['numberOfMatchesReturned'])
         result.seconds_elapsed = float(data_node.attrib['secondsElapsed'])
         result.number_of_matches_total = int(data_node.attrib['numberOfMatchesTotal'])
+        result.incomplete_result = data_node.attrib['incompleteResult'].lower() == 'true'
 
         result.posts = []
 
-        for p in data_node.findall('post[@contentType="blog"]'):
+        for p in data_node.findall('post'):
             result.posts.append(self._parse_post(p))
 
         return result
 
     def _parse_post(self, element):
-        post_params = {'tags': []}
+        list_tags = {'tags': 'tag', 'links': 'link', 'images': 'image'}
+        post_params = {'tags': [], 'links': [], 'images': []}
         for child in element:
-            if child.tag == 'tags':
-                post_params[child.tag] = self._parse_tags(child)
+            if child.tag in list_tags.keys():
+                post_params[child.tag] = self._parse_list_tag(child, list_tags[child.tag])
             else:
                 post_params[child.tag] = child.text
 
@@ -61,15 +63,21 @@ class Parser:
         post.set_values(post_params)
         return post
 
-    def _parse_tags(self, element):
-        tags = []
-        for tag in element.findall('tag'):
-            tags.append(tag.text)
-        return tags
+    def _parse_list_tag(self, element, tag):
+        list_tags = []
+        for child_element in element.findall(tag):
+            list_tags.append(child_element.text)
+        return list_tags
 
-    def _handle_failure(self, failure):
-        TwinglyException().from_api_response_message(failure.text)
+    def _handle_error(self, error_element):
+        code = error_element.attrib['code']
+        message = error_element.find('message').text
+        error = Error(code, message)
+        self._raise_error(error)
+
+    def _raise_error(self, error):
+        TwinglySearchException.from_api_response_message(error)
 
     def _handle_non_xml_document(self, document):
         response_text = ''.join(document.itertext())
-        raise TwinglyServerException(response_text)
+        raise TwinglySearchException(response_text)
