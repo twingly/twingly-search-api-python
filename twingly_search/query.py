@@ -4,7 +4,7 @@ import deprecation
 from pytz import utc
 
 import twingly_search
-from twingly_search.constants import QUERY_DATE_TIME_FORMAT
+from twingly_search.constants import DATE_TIME_FORMAT
 from twingly_search.errors import TwinglySearchQueryException
 
 try:
@@ -19,13 +19,13 @@ class Query(object):
     Twingly Search API Query
 
     Attributes:
-        pattern    (string) pattern the search query
-        language   (string) language which language to restrict the query to
-        client     (Client) the client that this query is connected to
-        start_time (datetime.datetime) search for posts published after this time (inclusive)
-                   Assumes UTC if the datetime object has no timezone set
-        end_time   (datetime.datetime) search for posts published before this time (inclusive)
-                   Assumes UTC if the datetime object has no timezone set
+        search_query (string) the search query
+        language     (string) which language to restrict the query to
+        client       (Client) the client that this query is connected to
+        start_time   (datetime.datetime) search for posts published after this time (inclusive)
+                     Assumes UTC if the datetime object has no timezone set
+        end_time     (datetime.datetime) search for posts published before this time (inclusive)
+                     Assumes UTC if the datetime object has no timezone set
     """
 
     def __init__(self, client):
@@ -67,22 +67,22 @@ class Query(object):
         """
         full_search_query = self.search_query
         if self._language:
-            full_search_query += " lang: " + self._language
+            full_search_query += " lang:" + self._language
         if self.start_time:
-            full_search_query += " start-date: " + self._time_to_utc_string(self.start_time)
+            full_search_query += " start-date:" + self._time_to_utc_string(self.start_time)
         if self.end_time:
-            full_search_query += " end-date: " + self._time_to_utc_string(self.end_time)
+            full_search_query += " end-date:" + self._time_to_utc_string(self.end_time)
         return full_search_query
 
     @property
     @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="Language is part of Search pattern now. Use 'lang: value' in search pattern instead.")
+                            details="Language is part of search query now. Use 'lang:value' in search_query instead.")
     def language(self):
         return self._language
 
     @language.setter
     @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="Language is part of Search pattern now. Use 'lang: value' in search pattern instead.")
+                            details="Language is part of search query now. Use 'lang:value' in search_query instead.")
     def language(self, value):
         self._language = value
 
@@ -113,7 +113,7 @@ class Query(object):
         Executes the Query and returns the result
 
         :return: the Result for this query
-        :raises TwinglySearchQueryException: if pattern is empty
+        :raises TwinglySearchQueryException: if search_query is empty
         :raises TwinglySearchAuthenticationException: if the API couldn't authenticate you
             Make sure your API key is correct
         :raises TwinglySearchServerException: if the query could not be executed
@@ -134,18 +134,14 @@ class Query(object):
     def request_parameters(self):
         """
         :return: the request parameters
-        :raises TwinglySearchQueryException: if pattern is empty
+        :raises TwinglySearchQueryException: if search_query is empty
         """
         if len(self.search_query) == 0:
             raise TwinglySearchQueryException("Missing search query")
 
         return {
-            'key': self.client.api_key,
-            'searchpattern': self.search_query,
-            'documentlang': self.language,
-            'ts': self._time_to_utc_string(self.start_time),
-            'tsTo': self._time_to_utc_string(self.end_time),
-            'xmloutputversion': 2
+            'apikey': self.client.api_key,
+            'q': self.build_query_string()
         }
 
     def _time_to_utc_string(self, time):
@@ -153,7 +149,7 @@ class Query(object):
             return ''
 
         time_in_utc = self._time_to_utc(time)
-        result = time_in_utc.strftime(QUERY_DATE_TIME_FORMAT)
+        result = time_in_utc.strftime(DATE_TIME_FORMAT)
         return result
 
     def _time_to_utc(self, time):
