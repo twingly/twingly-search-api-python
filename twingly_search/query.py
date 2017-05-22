@@ -75,30 +75,30 @@ class Query(object):
         return full_search_query
 
     @property
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Language is part of search query now. Use 'lang:value' in search_query instead.")
     def language(self):
         return self._language
 
     @language.setter
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Language is part of search query now. Use 'lang:value' in search_query instead.")
     def language(self, value):
         self._language = value
 
     @property
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use 'search_query' field instead")
     def pattern(self):
         return self.search_query
 
     @pattern.setter
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use 'search_query' field instead")
     def pattern(self, value):
         self.search_query = value
 
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use Client directly with build_query_string function instead.")
     def url(self):
         """
@@ -106,7 +106,7 @@ class Query(object):
         """
         return "%s?%s" % (self.client.endpoint_url(), self.url_parameters())
 
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use Client directly with build_query_string function instead.")
     def execute(self):
         """
@@ -121,7 +121,7 @@ class Query(object):
         """
         return self.client.execute_query(self.build_query_string())
 
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use Client directly with build_query_string function instead.")
     def url_parameters(self):
         """
@@ -129,7 +129,7 @@ class Query(object):
         """
         return urlencode(self.request_parameters())
 
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use Client directly with build_query_string function instead.")
     def request_parameters(self):
         """

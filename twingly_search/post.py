@@ -68,19 +68,19 @@ class Post(object):
         self.coordinates = ''
 
     @property
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use 'indexed_at' field instead")
     def indexed(self):
         return self.indexed_at
 
     @property
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use 'published_at' field instead")
     def published(self):
         return self.published_at
 
     @property
-    @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
+    @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
                             details="Use 'text' field instead")
     def summary(self):
         return self.text
