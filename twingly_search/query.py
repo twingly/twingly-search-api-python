@@ -19,13 +19,13 @@ class Query(object):
     Twingly Search API Query
 
     Attributes:
-        pattern    (string) pattern the search query
-        language   (string) language which language to restrict the query to
-        client     (Client) the client that this query is connected to
-        start_time (datetime.datetime) search for posts published after this time (inclusive)
-                   Assumes UTC if the datetime object has no timezone set
-        end_time   (datetime.datetime) search for posts published before this time (inclusive)
-                   Assumes UTC if the datetime object has no timezone set
+        search_query (string) the search query
+        language     (string) which language to restrict the query to
+        client       (Client) the client that this query is connected to
+        start_time   (datetime.datetime) search for posts published after this time (inclusive)
+                     Assumes UTC if the datetime object has no timezone set
+        end_time     (datetime.datetime) search for posts published before this time (inclusive)
+                     Assumes UTC if the datetime object has no timezone set
     """
 
     def __init__(self, client):
@@ -76,13 +76,13 @@ class Query(object):
 
     @property
     @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="Language is part of Search pattern now. Use 'lang: value' in search pattern instead.")
+                            details="Language is part of search query now. Use 'lang:value' in search_query instead.")
     def language(self):
         return self._language
 
     @language.setter
     @deprecation.deprecated(deprecated_in="3.0.0", removed_in="4.0.0", current_version=twingly_search.__version__,
-                            details="Language is part of Search pattern now. Use 'lang: value' in search pattern instead.")
+                            details="Language is part of search query now. Use 'lang:value' in search_query instead.")
     def language(self, value):
         self._language = value
 
@@ -113,7 +113,7 @@ class Query(object):
         Executes the Query and returns the result
 
         :return: the Result for this query
-        :raises TwinglySearchQueryException: if pattern is empty
+        :raises TwinglySearchQueryException: if search_query is empty
         :raises TwinglySearchAuthenticationException: if the API couldn't authenticate you
             Make sure your API key is correct
         :raises TwinglySearchServerException: if the query could not be executed
@@ -134,7 +134,7 @@ class Query(object):
     def request_parameters(self):
         """
         :return: the request parameters
-        :raises TwinglySearchQueryException: if search query is empty
+        :raises TwinglySearchQueryException: if search_query is empty
         """
         if len(self.search_query) == 0:
             raise TwinglySearchQueryException("Missing search query")
