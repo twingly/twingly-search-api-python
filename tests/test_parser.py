@@ -309,3 +309,10 @@ class ParserTest(unittest.TestCase):
         })
 
         self.assert_blog_posts_equal(posts[0], expectedPost)
+
+    def test_valid_links_result(self):
+        expected_coordinates = { 'latitude': 49.1, 'longitude': 10.75 }
+        data = self.get_fixture("valid_coordinates_result")
+        r = twingly_search.Parser().parse(data)
+        self.assertIsInstance(r, twingly_search.Result)
+        self.assertEqual(r.posts[0].coordinates, expected_coordinates)

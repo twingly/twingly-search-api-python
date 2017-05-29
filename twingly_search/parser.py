@@ -56,6 +56,8 @@ class Parser:
         for child in element:
             if child.tag in list_tags.keys():
                 post_params[child.tag] = self._parse_list_tag(child, list_tags[child.tag])
+            elif child.tag == 'coordinates':
+                post_params[child.tag] = self._parse_coordinates(child)
             else:
                 post_params[child.tag] = child.text
 
@@ -68,6 +70,18 @@ class Parser:
         for child_element in element.findall(tag):
             list_tags.append(child_element.text)
         return list_tags
+
+    def _parse_coordinates(self, element):
+        latitude_element = element.find('latitude')
+        longitude_element = element.find('longitude')
+
+        if latitude_element == None or longitude_element == None:
+            return {}
+
+        return {
+            'latitude': float(latitude_element.text),
+            'longitude': float(longitude_element.text),
+        }
 
     def _handle_error(self, error_element):
         code = error_element.attrib['code']
