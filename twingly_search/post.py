@@ -105,7 +105,7 @@ class Post(object):
         self.blog_id = params.get("blogId", "") or ""
         self.authority = int(params["authority"])
         self.blog_rank = int(params["blogRank"])
-        self.tags = params.get("tags", "") or ""
+        self.tags = params.get("tags", [])
         self.id = params.get("id", "") or ""
         self.author = params.get("author", "") or ""
         self.location_code = params.get("locationCode", "") or ""
