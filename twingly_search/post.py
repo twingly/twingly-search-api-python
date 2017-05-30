@@ -40,8 +40,9 @@ class Post(object):
         reindexed_at  (datetime.datetime) the time, in UTC, when this post was re-indexed by Twingly
         links         (list of string) links
         images        (list of string) images
-        coordinates   (string) coordinates
-                              
+        coordinates   (dict) DEPRECATED - see latitude and longitude
+        latitude      (float) latitude coordinate
+        longitude     (float) longitude coordinate
     """
 
     def __init__(self):
@@ -66,6 +67,8 @@ class Post(object):
         self.links = []
         self.images = []
         self.coordinates = ''
+        self.latitude = None
+        self.longitude = None
 
     @property
     @deprecation.deprecated(deprecated_in="2.0.0", removed_in="3.0.0", current_version=twingly_search.__version__,
@@ -110,7 +113,9 @@ class Post(object):
         self.reindexed_at = self._parse_time(params["reindexedAt"]) or self.DEFAULT_DATE
         self.links = params.get("links", [])
         self.images = params.get("images", [])
-        self.coordinates = params.get("coordinates", "") or ""
+        self.coordinates = params.get("coordinates", {})
+        self.latitude = self.coordinates.get("latitude", None)
+        self.longitude = self.coordinates.get("longitude", None)
 
     def _parse_time(self, time):
         parsed_time = datetime.datetime.strptime(time, DATE_TIME_FORMAT)
