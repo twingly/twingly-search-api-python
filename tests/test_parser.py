@@ -23,6 +23,8 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(actual_post.language_code, expected_post.language_code)
         self.assertEqual(actual_post.location_code, expected_post.location_code)
         self.assertEqual(actual_post.coordinates, expected_post.coordinates)
+        self.assertEqual(actual_post.latitude, expected_post.latitude)
+        self.assertEqual(actual_post.longitude, expected_post.longitude)
         self.assertEqual(actual_post.links, expected_post.links)
         self.assertEqual(actual_post.tags, expected_post.tags)
         self.assertEqual(actual_post.images, expected_post.images)
@@ -309,3 +311,12 @@ class ParserTest(unittest.TestCase):
         })
 
         self.assert_blog_posts_equal(posts[0], expectedPost)
+
+    def test_valid_coordinates_result(self):
+        expected_coordinates = { 'latitude': 49.1, 'longitude': 10.75 }
+        data = self.get_fixture("valid_coordinates_result")
+        r = twingly_search.Parser().parse(data)
+        self.assertIsInstance(r, twingly_search.Result)
+        self.assertEqual(r.posts[0].coordinates, expected_coordinates)
+        self.assertEqual(r.posts[0].latitude, expected_coordinates.get('latitude'))
+        self.assertEqual(r.posts[0].longitude, expected_coordinates.get('longitude'))

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<twinglydata numberOfMatchesReturned="1" secondsElapsed="0.245" numberOfMatchesTotal="1" incompleteResult="false">
+  <post>
+    <id>7533026945919130930</id>
+    <author />
+    <url>http://odoo-community.org/blog/oca-news-1/post/code-sprint-in-louvain-la-neuve-oct-3-and-4-2016-64</url>
+    <title>Code Sprint in Louvain la Neuve (Oct 3 and 4, 2016)</title>
+    <text>All you wanted to know about the OCA code sprintbut were afraid to askWhen?The sprint starts on monday Oct 3, 9:00 and ends on tuesday Oct 4, 18:00.Where?The sprint will be hosted at the Ibis Hotel in Louvain la Neuve. The hotel is at a 15 min walk from the Louvain la Neuve railway station, and about the same distance from the Aula Magna where the Odoo Experience is being held later that week. If you want to drive there, the GPS coordinates are  50.673359, 4.607381.We booked the same room as for last year's sprint.What to bring?Bring your good spirit.Bring your laptop.Be sure to bring an adapter if your local power plugs don't match belgian power sockets. If you come in a group, it's a good idea to bring a multi plug to share the power socket.Having some paper and a pen is nice.You may want to bring an edible or drinkable delicacy from your home place to share with the other participants, but this is entirely optional.The hotel has a good WiFi installation. However, 60 persons trying to clone large projects from github simultaneously is a problem. Please get ready in advance, and clone the repositories before leaving for the sprint:https://github.com/odoo/odoo	https://github.com/OCA/OCB	the various OCA projects (hint : you can use the oca-clone-everything script from OCA/maintainer-tools)Do you have some kind of schedule?Sure!Both days should follow roughly the following plan:9h short start up speech, presentation of the rules and sprint tracks	9h30 - 12h30 code sprint	12h30 - ~14h lunch break	14h - 15h lightning talk track	14h - 17h code sprint	17h - 18h presentation of achievements by each sprint trackWhat will we eat?That's a very important question!The OCA will cover the costs of the lunches and coffee break, and the hotel restaurant is pretty good.There are no plans for dinners, but you will need to plan to handle this by yourself.If there are things you cannot eat for some reason, please send an email to alexandre.fayolle at camptocamp.com.What will be the sprint tracks?Based on the feedback received on the registration form here are the sprint tracks attendees are proposing to manage:Website CMS improvements (Simone Orsi)	OpenDocument based reporting engine (Alexis de Lattre): there is one important topic I would like to achieve: decide which OpenDocument-based reporting engine we include in the OCA.	Electronic invoicing (Alexis de Lattre)	Refactor Geoengine by migrating it to OpenLayers 3 (oca/geospatial) (Yannick Vaucher): the work was started on Odoo 8 but is now stalled. Plus, Geoengine has seen some features this year making it greater, but on deprecated OpenLayers 2.  I'd like to continue this refactoring and maybe get a first version without all the functionalities we go with OL2.	Contributors stats gathering module (Maxime Chambreuil): OCA devs like contributors stats !	Getting to know the OCA Developpment Workflow (Robert Rottermann)	document_sftp (Holger Brunn): I'd work on https://github.com/OCA/knowledge/tree/8.0/document_sftp. Or maybe implement a ssh server so that we can provide a shell with some odoo specific commands, so that we can write shell scripts doing odoo stuff while being authenticated with an ssh key	Stocks logistics barcode scanning (Aaron Henriquez): Move to v9.	Improve the Business Requirement set of modules (Eric Caudal)	mobile community interface (Jairo Llopis):  polish the interface and create an addon that leverages the power of CoffeScript for Odoo (similar to website_less, but for CS).	Dockerizing the runbot (Alexandre Fayolle, Moisés López and Dave Lasley)	mackma project (Frederik Kramer):  work on www.mackma-project.eu an European Reasearch Project on Knowledge Mangement with Odoo	setuptools-odoo (Stéphane Bidoul): eg update travis script to use it instead of oca-dependencies.txt, push to pypi, support Odoo 10, etcThere will probably be some tracks to perform code reviews, process pending PRs, port addons to newer Odoo releases.We will also have some lightning talks.Lightning talks? What's that?A lightning talk session is a 1h track where people get a 5min slot to show and tell about a topic of their choice. The time constraint is everything, 5min is all you get (and we have a stop watch), so be sure to rehease a bit. You will get an opportunity to propose talks at the last minute.Here's a list of talks participants proposed in the poll:How to document your module for all end users profit	Improvements in bank-payment in v9 ?	Odoo_Instances a toolset to setup and deoploy Odoo using docker	document_sftp	Inventory Revaluation module	If I get the coffeescript toolchain working, then I'd love to present it in 5 minutes :)	E-commerce alternative based on odoo and locootivecms.	Voodoo a tool to develop and deploy easily odoo	Devops Used at Vauxoo	About new addons social/mail_tracking*	Unit test odoo report	base_custom_info and base_multi_image generic mixins	web_timelineAny other question?ask it on the contributors mailing list !I'm looking forward to seeing you all in Louvain la Neuve!</text>
+    <languageCode>en</languageCode>
+    <locationCode>ru</locationCode>
+    <coordinates>
+      <latitude>49.1</latitude>
+      <longitude>10.75</longitude>
+    </coordinates>
+    <links>
+      <link>http://www.accorhotels.com/gb/hotel-2200-ibis-styles-meeting-center-louvain-la-neuve</link>
+      <link>http://www.openstreetmap.org/node/356183421#map=17/50.67292/4.61226</link>
+      <link>http://www.ahstatic.com/photos/2200_sm_02_p_1024x768.jpg</link>
+      <link>http://www.power-plugs-sockets.com/belgium</link>
+      <link>https://www.github.com/odoo/odoo</link>
+      <link>https://www.github.com/OCA/OCB</link>
+      <link>https://www.github.com/OCA/maintainer-tools</link>
+      <link>https://www.github.com/OCA/knowledge/tree/8.0/document_sftp</link>
+      <link>http://www.mackma-project.eu/</link>
+    </links>
+    <tags>
+      <tag>OCA News</tag>
+    </tags>
+    <images />
+    <indexedAt>2016-09-23T05:30:02Z</indexedAt>
+    <publishedAt>2017-05-28T15:01:48Z</publishedAt>
+    <reindexedAt>0001-01-01T00:00:00Z</reindexedAt>
+    <inlinksCount>0</inlinksCount>
+    <blogId>18224846301333517008</blogId>
+    <blogName>OCA News</blogName>
+    <blogUrl>https://odoo-community.org</blogUrl>
+    <blogRank>1</blogRank>
+    <authority>2</authority>
+  </post>
+</twinglydata>
