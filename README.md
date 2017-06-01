@@ -97,11 +97,11 @@ You will need pandoc to convert README.md to reStructuredText:
 1. Bump the version in [setup.py](./setup.py) and [\__init\__.py](./twingly-search/__init__.py).
 1. Create a tag with the same version and push it to GitHub:
 
-    git tag <VERSION> && git push --follow-tags
+        git tag <VERSION> && git push --follow-tags
 
 1. Publish to [PyPi]:
 
-    ./publish-to-pypi.sh
+        ./publish-to-pypi.sh
 
 [PyPi]: https://pypi.python.org/pypi/twingly-search
 [.pypirc file]: https://docs.python.org/2/distutils/packageindex.html#pypirc
