@@ -16,7 +16,7 @@ else:
 
 setup(
     name='twingly-search',
-    version='2.0.0',
+    version='2.1.0',
     author='Twingly AB',
     author_email='support@twingly.com',
     license='MIT',
