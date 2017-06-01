@@ -85,6 +85,8 @@ Run the tests
 
 ### Release
 
+#### Make the release
+
 To be able to publish the package, create a [.pypirc file] containing your pypi username an password.
 
 You will need pandoc to convert README.md to reStructuredText:
@@ -92,14 +94,25 @@ You will need pandoc to convert README.md to reStructuredText:
     brew install pandoc
     pip install pypandoc
 
-Bump the version in [setup.py](./setup.py) and [\__init\__.py](./twingly-search/__init__.py).
+1. Bump the version in [setup.py](./setup.py) and [\__init\__.py](./twingly-search/__init__.py).
+1. Create a tag with the same version and push it to GitHub:
 
-Publish to [PyPi]:
+    git tag <VERSION> && git push --follow-tags
+
+1. Publish to [PyPi]:
 
     ./publish-to-pypi.sh
 
 [PyPi]: https://pypi.python.org/pypi/twingly-search
 [.pypirc file]: https://docs.python.org/2/distutils/packageindex.html#pypirc
+
+#### Update the changelog
+
+* Install [GitHub Changelog Generator](https://github.com/skywinder/github-changelog-generator/) if you don't have it
+  * `gem install github_changelog_generator`
+* Set `CHANGELOG_GITHUB_TOKEN` to a personal access token to increase your GitHub API rate limit
+* Generate the changelog
+  * `github_changelog_generator`
 
 ## License
 
