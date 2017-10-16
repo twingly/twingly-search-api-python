@@ -115,7 +115,7 @@ class QueryTest(unittest.TestCase):
     def test_query_using_start_time_parsed_by_dateutil(self):
         q = self._client.query()
         q.pattern = "spotify"
-        q.start_time = dateutil.parser.parse("2012-12-28T09:01:22 -0800")
+        q.start_time = dateutil.parser.parse("2012-12-28 09:01:22 -0800")
         self.assertIn("start-date:2012-12-28T17:01:22", q.build_query_string())
 
     def test_query_when_start_time_is_not_a_datetime(self):
@@ -144,7 +144,7 @@ class QueryTest(unittest.TestCase):
     def test_query_using_end_time_parsed_by_dateutil(self):
         q = self._client.query()
         q.pattern = "spotify"
-        q.end_time = dateutil.parser.parse("2012-12-28T09:01:22 +0800")
+        q.end_time = dateutil.parser.parse("2012-12-28 09:01:22 +0800")
         self.assertIn("2012-12-28T01:01:22", q.build_query_string())
 
     def test_query_when_end_time_is_not_a_datetime(self):
