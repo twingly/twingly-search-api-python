@@ -19,4 +19,5 @@ from .parser import Parser
 from .post import Post
 from .result import Result
 from .constants import TWINGLY_SEARCH_KEY
-from .constants import DATE_TIME_FORMAT
+from .constants import POST_DATE_TIME_FORMAT
+from .constants import QUERY_DATE_TIME_FORMAT

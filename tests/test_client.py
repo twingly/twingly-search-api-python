@@ -68,5 +68,5 @@ class ClientTest(unittest.TestCase):
             result = c.execute_query(q)
             self.assertIsNotNone(result)
             self.assertEqual(result.incomplete_result, False)
-            self.assertEqual(result.number_of_matches_returned, 1)
-            self.assertEqual(len(result.posts), 1)
+            self.assertEqual(result.number_of_matches_returned, 20)
+            self.assertEqual(len(result.posts), 20)
