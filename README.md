@@ -94,7 +94,7 @@ You will need pandoc to convert README.md to reStructuredText:
     brew install pandoc
     pip install pypandoc
 
-1. Bump the version in [setup.py](./setup.py) and [\__init\__.py](./twingly-search/__init__.py).
+1. Bump the version in [setup.py](./setup.py) and [\_\_init\_\_.py](./twingly-search/__init__.py).
 1. Create a tag with the same version and push it to GitHub:
 
         git tag <VERSION> && git push --follow-tags
