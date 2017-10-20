@@ -1,5 +1,16 @@
 # Change Log
 
+## [2.1.1](https://github.com/twingly/twingly-search-api-python/tree/2.1.1) (2017-10-20)
+[Full Changelog](https://github.com/twingly/twingly-search-api-python/compare/2.1.0...2.1.1)
+
+**Implemented enhancements:**
+
+- Add changelog [\#37](https://github.com/twingly/twingly-search-api-python/issues/37)
+
+**Merged pull requests:**
+
+- Do not include TZ information in queries [\#38](https://github.com/twingly/twingly-search-api-python/pull/38) ([walro](https://github.com/walro))
+
 ## [2.1.0](https://github.com/twingly/twingly-search-api-python/tree/2.1.0) (2017-06-01)
 [Full Changelog](https://github.com/twingly/twingly-search-api-python/compare/2.0.0...2.1.0)
 
