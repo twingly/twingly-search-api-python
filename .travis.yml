@@ -1,25 +1,12 @@
 language: python
 sudo: false
-
 python:
   - "2.7"
   - "3.5"
-
 install:
   - travis_retry pip install .
   - pip install -r test_requirements.txt
-
 script:
   - make test
-
 notifications:
   email: false
-  hipchat:
-    on_success: never
-    on_failure: change
-    template:
-    - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}
-      (<a href="%{build_url}">Details</a>/<a href="%{compare_url}">Change view</a>)'
-    format: html
-    rooms:
-      secure: TbFUdHbSG4nNu1/vgcSBOabvyvHdrsg8lGxecOmwjW4nU18IVEhcDHyhzS7Fpndm+xe3XSOjYuERrkiYQPsd5uVvXXJQjnNgDJgf+b7bQP2KYPMFd99DsFCsy+wVyOAk1XV4RfFvHuwyFkw9A59pYabk9foXO7nrrozxOUPu/oVxwRJq1vqlh/h3xla7OYDw4TGJ4SnSReRud5FS+OdAiKliYguicKPNrTNYcUCCACR3+R/wLSn+pW+RKjxzKR8tPl5mZjYjMV/VNDQ/4xr3WVc0yMNGJnjN1FEmCBqwz5tnp5w0O5lMtUSwEHyPuh5ydFgefd2i8QStJoqqAWDmWBPTEx6x4OhisOzi/BL7+Uw4XFHDtz33ijAkIU3vC5tickrUvHrDWZX+yIgUnoPd8+q/GDXVyw5+GbPSToswxksdipolKHLfDzYJJ79ktZLnBRz7fWCvhpv2ZBltHgE8rUxoRj0APT+eEln48joDaYy4RB4cpLW3xDLFx0tF8J3K5zJjtaJldwEvMIlHNocJgv8bR0tdyGdeuNBDnCHqL6pJiq8hMTRpx9yxpRQpyzPO9WxzYH0U7hcC0cL//Oy4tjlyYoRl/SaqD6KE5+hvhJc+sAb8xGYbr/e6eOPbzr/maV9Ww2ePRQ4NLMy4UInz3qtFfRrcFg1Srf2l5RqYcWk=
