@@ -8,7 +8,7 @@ python:
   - "3.6"
   - "3.7"
 install:
-  - make cideps
+  - make testdeps
   - pip install .
 script:
   - make test
