@@ -75,9 +75,9 @@ In this case documentation will be available at [http://localhost:1234/twingly_s
 
 ### Tests
 
-Install the tests dependencies
+Install all dependencies
 
-    make deps
+    make localdeps
 
 Run the tests
 
