@@ -2,9 +2,12 @@ help:
 	@echo "  deps        install test dependencies"
 	@echo "  test        run tests"
 
-deps:
+cideps:
+	pip install --requirement test_requirements.txt
+
+localdeps:
 	pip install --user --requirement test_requirements.txt
-	pip install .
+	pip install --user --requirement requirements.txt
 
 test:
 	nosetests

@@ -4,7 +4,8 @@ python:
   - "2.7"
   - "3.5"
 install:
-  - make deps
+  - make cideps
+  - pip install .
 script:
   - make test
 notifications:
