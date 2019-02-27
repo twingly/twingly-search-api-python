@@ -14,6 +14,9 @@ else:
     long_description = readme_file.read()
     readme_file.close()
 
+with open('requirements.txt') as fp:
+    install_requires = fp.readlines()
+
 setup(
     name='twingly-search',
     version='2.1.1',
@@ -25,7 +28,7 @@ setup(
     description='Python library for Twingly Search API',
     long_description=long_description,
     packages=find_packages(exclude=['tests*']),
-    install_requires=['future', 'requests'],
+    install_requires=install_requires,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
