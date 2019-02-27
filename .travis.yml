@@ -4,8 +4,7 @@ python:
   - "2.7"
   - "3.5"
 install:
-  - travis_retry pip install .
-  - pip install -r test_requirements.txt
+  - make deps
 script:
   - make test
 notifications:

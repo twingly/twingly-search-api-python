@@ -3,7 +3,8 @@ help:
 	@echo "  test        run tests"
 
 deps:
-	pip install -r test_requirements.txt
+	pip install --user --requirement test_requirements.txt
+	pip install .
 
 test:
 	nosetests
