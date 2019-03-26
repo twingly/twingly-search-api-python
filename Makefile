@@ -10,4 +10,5 @@ localdeps:
 	pip install --user --requirement requirements.txt
 
 test:
-	nosetests
+	pytest --disable-pytest-warnings
+
