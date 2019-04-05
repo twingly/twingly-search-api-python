@@ -1,5 +1,19 @@
 # Change Log
 
+## [2.1.2](https://github.com/twingly/twingly-search-api-python/tree/2.1.2) (2019-04-05)
+[Full Changelog](https://github.com/twingly/twingly-search-api-python/compare/2.1.1...2.1.2)
+
+**Implemented enhancements:**
+
+- Test the install procedure in Windows [\#45](https://github.com/twingly/twingly-search-api-python/issues/45)
+- Use pytest instead of Nose [\#43](https://github.com/twingly/twingly-search-api-python/issues/43)
+
+**Merged pull requests:**
+
+- Switch to pytest instead of nose [\#47](https://github.com/twingly/twingly-search-api-python/pull/47) ([walro](https://github.com/walro))
+- Test the install procedure [\#42](https://github.com/twingly/twingly-search-api-python/pull/42) ([dentarg](https://github.com/dentarg))
+- Add all required modules in setup.py [\#40](https://github.com/twingly/twingly-search-api-python/pull/40) ([sp1thas](https://github.com/sp1thas))
+
 ## [2.1.1](https://github.com/twingly/twingly-search-api-python/tree/2.1.1) (2017-10-20)
 [Full Changelog](https://github.com/twingly/twingly-search-api-python/compare/2.1.0...2.1.1)
 
