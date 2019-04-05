@@ -87,7 +87,12 @@ Run the tests
 
 #### Make the release
 
-To be able to publish the package, create a [.pypirc file] containing your pypi username an password.
+To be able to publish the package, install twine and python-dotenv:
+
+    pip install twine
+    pip install python-dotenv[cli]
+
+Set `TWINE_USERNAME` and `TWINE_PASSWORD` in `.env`, using the PyPI username and password.
 
 You will need pandoc to convert README.md to reStructuredText:
 
@@ -101,10 +106,9 @@ You will need pandoc to convert README.md to reStructuredText:
 
 1. Publish to [PyPi]:
 
-        ./publish-to-pypi.sh
+        dotenv run ./publish-to-pypi.sh
 
-[PyPi]: https://pypi.python.org/pypi/twingly-search
-[.pypirc file]: https://docs.python.org/2/distutils/packageindex.html#pypirc
+[PyPi]: https://pypi.org/project/twingly-search/
 
 #### Update the changelog
 
