@@ -38,5 +38,6 @@ pip-log.txt
 
 #Environment
 env
+.env
 
 *.iml
