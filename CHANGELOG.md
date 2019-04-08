@@ -1,5 +1,20 @@
 # Change Log
 
+## [2.1.3](https://github.com/twingly/twingly-search-api-python/tree/2.1.3) (2019-04-08)
+[Full Changelog](https://github.com/twingly/twingly-search-api-python/compare/2.1.2...2.1.3)
+
+**Implemented enhancements:**
+
+- Migrate to pypi.org [\#39](https://github.com/twingly/twingly-search-api-python/issues/39)
+
+**Closed issues:**
+
+- Release a new version [\#46](https://github.com/twingly/twingly-search-api-python/issues/46)
+
+**Merged pull requests:**
+
+- Use twine when publishing [\#48](https://github.com/twingly/twingly-search-api-python/pull/48) ([walro](https://github.com/walro))
+
 ## [2.1.2](https://github.com/twingly/twingly-search-api-python/tree/2.1.2) (2019-04-05)
 [Full Changelog](https://github.com/twingly/twingly-search-api-python/compare/2.1.1...2.1.2)
 
