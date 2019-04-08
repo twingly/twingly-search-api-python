@@ -87,14 +87,14 @@ Run the tests
 
 #### Make the release
 
-To be able to publish the package, install twine and python-dotenv:
+To be able to publish the package, install `twine` and, optionally, `python-dotenv`:
 
     pip install twine
-    pip install python-dotenv[cli]
+    pip install python-dotenv[cli] # optional
 
-Set `TWINE_USERNAME` and `TWINE_PASSWORD` in `.env`, using the PyPI username and password.
+If using `python-dotenv` or equivalent: set `TWINE_USERNAME` and `TWINE_PASSWORD` in `.env`, using the PyPI username and password.
 
-You will need pandoc to convert README.md to reStructuredText:
+You will need `pandoc` to convert README.md to reStructuredText:
 
     brew install pandoc
     pip install pypandoc
@@ -104,7 +104,7 @@ You will need pandoc to convert README.md to reStructuredText:
 
         git tag <VERSION> && git push --follow-tags
 
-1. Publish to [PyPi]:
+1. Publish to [PyPi], assuming usage of `python-dotenv`:
 
         dotenv run ./publish-to-pypi.sh
 
