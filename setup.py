@@ -19,7 +19,7 @@ with open('requirements.txt') as fp:
 
 setup(
     name='twingly-search',
-    version='2.1.2',
+    version='2.1.3',
     author='Twingly AB',
     author_email='support@twingly.com',
     license='MIT',
