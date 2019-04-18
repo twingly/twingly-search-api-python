@@ -3,8 +3,10 @@
 """A library provides Python interface to the Twingly Search API"""
 from __future__ import absolute_import
 
+from .version import version
+
 __author__ = 'Twingly AB'
-__version__ = '2.1.3'
+__version__ = version
 
 from .client import Client
 from .errors import TwinglySearchException
