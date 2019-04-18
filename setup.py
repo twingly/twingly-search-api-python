@@ -5,6 +5,7 @@
 import os
 
 from setuptools import setup, find_packages
+from twingly_search.__init__ import __version__
 
 if 'GENERATE_RST' in os.environ:
     import pypandoc
@@ -19,7 +20,7 @@ with open('requirements.txt') as fp:
 
 setup(
     name='twingly-search',
-    version='2.1.3',
+    version=__version__,
     author='Twingly AB',
     author_email='support@twingly.com',
     license='MIT',
