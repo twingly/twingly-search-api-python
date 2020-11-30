@@ -1,6 +1,6 @@
 # Twingly Search API Python
 
-[![Build Status](https://travis-ci.org/twingly/twingly-search-api-python.png?branch=master)](https://travis-ci.org/twingly/twingly-search-api-python)
+[![GitHub Build Status](https://github.com/twingly/twingly-search-api-python/workflows/CI/badge.svg)](https://github.com/twingly/twingly-search-api-python/actions)
 
 A Python library for Twingly's Search API (previously known as Analytics API). Twingly is a blog search service that provides a searchable API known as [Twingly Search API](https://developer.twingly.com/resources/search/).
 
