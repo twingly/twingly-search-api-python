@@ -33,7 +33,7 @@ class SimpleSearchCli(object):
         self.client = twingly_search.Client()
 
     def start(self):
-        # See https://developer.twingly.com/resources/search-language/
+        # See https://app.twingly.com/blog_search?tab=documentation
         q = self.client.query()
         q.search_query = raw_input("What do you want to search for? ")
         q.start_time = self._read_time_from_stdin("Start time")

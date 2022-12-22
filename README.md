@@ -2,7 +2,7 @@
 
 [![GitHub Build Status](https://github.com/twingly/twingly-search-api-python/workflows/CI/badge.svg?branch=master)](https://github.com/twingly/twingly-search-api-python/actions)
 
-A Python library for Twingly's Search API (previously known as Analytics API). Twingly is a blog search service that provides a searchable API known as [Twingly Search API](https://developer.twingly.com/resources/search/).
+A Python library for Twingly's Search API (previously known as Analytics API). Twingly is a blog search service that provides a searchable API known as [Twingly Search API][Twingly Search API documentation].
 
 ## Installation
 
@@ -45,7 +45,9 @@ Example code can be found in [examples/](examples/).
 
 The `twingly_search` library talks to a commercial blog search API and requires an API key. Best practice is to set the `TWINGLY_SEARCH_KEY` environment variable to the obtained key. `twingly_search.Client` can be passed a key at initialization if your setup does not allow environment variables.
 
-To learn more about the capabilities of the API, please read the [Twingly Search API documentation](https://developer.twingly.com/resources/search/).
+To learn more about the capabilities of the API, please read the [Twingly Search API documentation].
+
+[Twingly Search API documentation]: https://app.twingly.com/blog_search?tab=documentation
 
 ### Documentation
 

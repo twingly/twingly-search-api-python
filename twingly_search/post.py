@@ -28,14 +28,14 @@ class Post(object):
         blog_url      (string) the blog URL
         blog_name     (string) name of the blog
         blog_rank     (int) the rank of the blog, based on authority and language
-                      (https://developer.twingly.com/resources/search/#authority)
+                      (https://app.twingly.com/blog_search?tab=documentation)
         blog_id       (string) the ID of the blog
         authority     (int) the blog's authority/influence
-                      (https://developer.twingly.com/resources/search/#authority)
+                      (https://app.twingly.com/blog_search?tab=documentation)
         tags          (list of string) tags
         id            (string) the post ID
         location_code (string) ISO two letter location code
-                      (https://developer.twingly.com/resources/search-language/#supported-locations)
+                      (https://app.twingly.com/blog_search?tab=documentation)
         inlinks_count (int) amount of the inlinks
         reindexed_at  (datetime.datetime) the time, in UTC, when this post was re-indexed by Twingly
         links         (list of string) links
